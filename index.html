@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alfa Git — the Git client for the folder where all your repos live</title>
+  <meta name="description" content="Alfa Git scans your projects folder, finds every Git repository and shows each one with its own status. Commit graph, staging, conflicts, rebase and a built-in editor. Free during the beta.">
+  <meta name="theme-color" content="#110f26">
+  <meta property="og:title" content="Alfa Git — every repository at a glance">
+  <meta property="og:description" content="A desktop Git client for the folder where all your repositories live. Free during the beta.">
+  <meta property="og:image" content="assets/workspace.png">
+  <meta property="og:type" content="website">
+  <link rel="alternate" hreflang="en" href="./">
+  <link rel="alternate" hreflang="es" href="es/">
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+  <link rel="apple-touch-icon" href="assets/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav" id="top">
+    <div class="container nav__inner">
+      <a class="brand" href="#top" aria-label="Alfa Git, home">
+        <img src="assets/icon.svg" alt="" width="32" height="32">
+        <span>Alfa Git</span>
+        <span class="tag">Beta</span>
+      </a>
+      <nav class="nav__links" aria-label="Main">
+        <a href="#features">Features</a>
+        <a href="#under-the-hood">Under the hood</a>
+        <a href="#beta">Beta</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="nav__actions">
+        <a class="lang" href="es/" hreflang="es" lang="es" title="Español">ES</a>
+        <a class="btn btn--primary btn--sm" data-link="download" href="https://github.com/while1is1/alfagit-releases/releases/latest">Download</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="container hero__inner">
+        <a class="pill" href="#beta">
+          <span class="pill__dot"></span> Public beta · free while it lasts
+        </a>
+        <h1>Every repository.<br><span class="grad">One glance.</span></h1>
+        <p class="lead">
+          The desktop Git client for the folder where all your repositories live.
+          Alfa Git finds every repo in <code>~/Projects</code> and shows which ones have work you forgot to commit.
+        </p>
+        <div class="cta">
+          <a class="btn btn--primary btn--lg" data-link="download" href="https://github.com/while1is1/alfagit-releases/releases/latest">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3h2v9.17l3.59-3.58L18 10l-6 6-6-6 1.41-1.41L11 12.17V3zM5 18h14v2H5z"/></svg>
+            Download for Linux (.deb)
+          </a>
+        </div>
+        <p class="fineprint">Free during the beta · Ubuntu, Debian and derivatives · x64 · Installs Git if it is missing</p>
+
+        <figure class="window window--hero">
+          <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i><span>Projects — Alfa Git</span></div>
+          <img src="assets/workspace.png" width="1600" height="851"
+               alt="Alfa Git showing a workspace with fourteen repositories, each with its own status">
+        </figure>
+      </div>
+    </section>
+
+    <!-- Problem strip -->
+    <section class="strip">
+      <div class="container strip__inner">
+        <div class="strip__item">
+          <strong>12 repos</strong>
+          <span>in one folder, one window</span>
+        </div>
+        <div class="strip__item">
+          <strong>0 re-implementations</strong>
+          <span>the real Git CLI does the work</span>
+        </div>
+        <div class="strip__item">
+          <strong>Live</strong>
+          <span>changes from your terminal show up on their own</span>
+        </div>
+        <div class="strip__item">
+          <strong>No account</strong>
+          <span>no sign-up, no telemetry</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why -->
+    <section class="why container">
+      <p class="eyebrow">Why another Git client</p>
+      <h2>Most Git clients assume one repository at a time.<br><span class="muted">Your work doesn't.</span></h2>
+      <p class="lead lead--narrow">
+        A couple of services, a shared library, an app, something legacy nobody wants to touch — all in one folder.
+        The question is rarely <em>"what changed in this repo?"</em> It's
+        <strong>"which of my repositories have work I forgot to commit?"</strong>
+        Alfa Git answers that in a glance, not a tour of twenty windows.
+      </p>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="features container">
+      <article class="feature">
+        <div class="feature__text">
+          <p class="eyebrow">Workspace</p>
+          <h3>Every repository at a glance</h3>
+          <p>
+            Point it at a folder once. Alfa Git finds every repository inside — worktrees, submodules and nested
+            repos included — and gives each one a status dot: changes, conflicts, a merge or rebase in progress.
+          </p>
+          <ul class="checks">
+            <li><strong>Workspace Changes</strong>: one table to filter and sort by name, path or branch</li>
+            <li><strong>Fetch All</strong> across every remote, with bounded concurrency</li>
+            <li>Workspace tabs to keep several projects at hand</li>
+          </ul>
+        </div>
+        <figure class="window">
+          <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="assets/workspace.png" width="1600" height="851" loading="lazy"
+               alt="Sidebar listing every repository of a workspace with its status">
+        </figure>
+      </article>
+
+      <article class="feature feature--flip">
+        <div class="feature__text">
+          <p class="eyebrow">History</p>
+          <h3>A graph that shows the structure</h3>
+          <p>
+            Lanes and colours per branch, the author on every node, branch and tag chips. Uncommitted changes sit
+            on top, and every stash hangs off the commit it was made from.
+          </p>
+          <ul class="checks">
+            <li>Right click to cherry-pick, revert, merge, rebase, reset or tag</li>
+            <li>Commit details with its files and diff side by side</li>
+            <li>Interactive rebase: drag to reorder, squash, fixup, reword, drop</li>
+            <li><strong>File History and Blame</strong>: every commit that touched a file, and who last changed each line</li>
+          </ul>
+        </div>
+        <figure class="window">
+          <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="assets/history.png" width="1600" height="851" loading="lazy"
+               alt="Commit graph with branches, tags, stashes and the working tree">
+        </figure>
+      </article>
+
+      <article class="feature">
+        <div class="feature__text">
+          <p class="eyebrow">Changes</p>
+          <h3>Stage, diff and commit</h3>
+          <p>
+            Merge, staged, unstaged and untracked groups — as a tree or as paths — with syntax-highlighted diffs.
+            Amend, stash everything or just a few files, and discard with a confirmation from the OS itself.
+          </p>
+          <ul class="checks">
+            <li>Stage and unstage by file</li>
+            <li>Discard and clean, confirmed natively</li>
+            <li>Partial stashes, amend, pull modes</li>
+          </ul>
+        </div>
+        <figure class="window">
+          <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="assets/changes.png" width="1600" height="851" loading="lazy"
+               alt="Staging area with the diff of a file">
+        </figure>
+      </article>
+
+      <article class="feature feature--flip">
+        <div class="feature__text">
+          <p class="eyebrow">Conflicts</p>
+          <h3>Decide by looking, not by reading markers</h3>
+          <p>
+            Each side of a conflict is a card: what it did to the file and <strong>which commit it comes from</strong>,
+            with a button that says exactly what it will do. Fix it by hand in place when neither side is right.
+          </p>
+          <ul class="checks">
+            <li>Conflict blocks highlighted in the working file</li>
+            <li>Every version one tab away</li>
+            <li><code>Conflict 2 of 3</code> walks you through the rest</li>
+          </ul>
+        </div>
+        <figure class="window">
+          <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="assets/conflict.png" width="1600" height="851" loading="lazy"
+               alt="A conflict shown as one card per side">
+        </figure>
+      </article>
+
+      <article class="feature">
+        <div class="feature__text">
+          <p class="eyebrow">Rebase</p>
+          <h3>A rebase you can follow</h3>
+          <p>
+            While a rebase is stopped, the header says what is being rebased onto what and how far it got — and
+            <strong>the graph marks the plan</strong>: what is replayed, where it stopped, what is still to come.
+          </p>
+          <ul class="checks">
+            <li>Read from Git's own files, so it works for a rebase you started in the terminal</li>
+            <li>Warns before rewriting commits that are already published</li>
+          </ul>
+        </div>
+        <figure class="window">
+          <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="assets/rebase.png" width="1600" height="851" loading="lazy"
+               alt="A rebase in progress with its plan marked on the graph">
+        </figure>
+      </article>
+
+      <article class="feature feature--flip">
+        <div class="feature__text">
+          <p class="eyebrow">Editor</p>
+          <h3>An editor for the small fix</h3>
+          <p>
+            Monaco, per repository, for the typo you don't want to switch apps for. Create, rename and delete files,
+            resolve a conflict and stage — or jump to your real editor or terminal with one click.
+          </p>
+          <ul class="checks">
+            <li>Search files and text inside a repository</li>
+            <li>Open in your editor or terminal</li>
+          </ul>
+        </div>
+        <figure class="window">
+          <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="assets/editor.png" width="1600" height="851" loading="lazy"
+               alt="The built-in editor with a file open">
+        </figure>
+      </article>
+    </section>
+
+    <!-- Everything else -->
+    <section class="grid-section container">
+      <p class="eyebrow center">And the rest</p>
+      <h2 class="center">Everything you reach for every day</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="card__icon" aria-hidden="true">⎇</span>
+          <h4>Branches &amp; tags</h4>
+          <p>Create, checkout, rename and delete — local and remote. Annotated or lightweight tags.</p>
+        </div>
+        <div class="card">
+          <span class="card__icon" aria-hidden="true">⇅</span>
+          <h4>Fetch, pull, push</h4>
+          <p>Pull with merge or rebase, and auto-fetch per workspace on your schedule.</p>
+        </div>
+        <div class="card">
+          <span class="card__icon" aria-hidden="true">◉</span>
+          <h4>Watches every repo</h4>
+          <p>A commit from your terminal or a stash from VS Code shows up without a refresh.</p>
+        </div>
+        <div class="card">
+          <span class="card__icon" aria-hidden="true">★</span>
+          <h4>Favourites</h4>
+          <p>Pin the repos you touch every day to the top of the list.</p>
+        </div>
+        <div class="card">
+          <span class="card__icon" aria-hidden="true">⚙</span>
+          <h4>Per-workspace scan</h4>
+          <p>Choose what to skip — <code>node_modules</code>, <code>dist</code> and friends are out by default.</p>
+        </div>
+        <div class="card">
+          <span class="card__icon" aria-hidden="true">›_</span>
+          <h4>Command log</h4>
+          <p>Every Git command the app runs, with its exit code and real output, in the Output panel.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Under the hood -->
+    <section id="under-the-hood" class="hood">
+      <div class="container hood__inner">
+        <div>
+          <p class="eyebrow">Under the hood</p>
+          <h2>Built on Git,<br>not around it.</h2>
+          <p class="lead">
+            No Git library, no bundled binary. Alfa Git drives the Git you already have installed, so what it shows
+            is exactly what <code>git</code> says — and when something fails, you get the real error.
+          </p>
+        </div>
+        <div class="terminal" role="img" aria-label="Example of the Output panel with the Git commands the app ran">
+          <div class="terminal__bar"><i></i><i></i><i></i><span>Output</span></div>
+          <pre><span class="t-dim">12:04:31</span> <span class="t-ok">✓</span> git status --porcelain=v2 -z <span class="t-dim">· api-users · 38 ms</span>
+<span class="t-dim">12:04:31</span> <span class="t-ok">✓</span> git log --pretty=format:… -n 200 <span class="t-dim">· checkout-service · 51 ms</span>
+<span class="t-dim">12:04:33</span> <span class="t-ok">✓</span> git fetch --prune origin <span class="t-dim">· api-payments · 812 ms</span>
+<span class="t-dim">12:04:40</span> <span class="t-err">✗</span> git push origin main <span class="t-dim">· exit 1</span>
+         <span class="t-err">! [rejected] main -&gt; main (fetch first)</span></pre>
+        </div>
+        <ul class="hood__list">
+          <li><strong>No shell, ever.</strong> Git runs with <code>spawn(git, args[], {&nbsp;shell:&nbsp;false&nbsp;})</code>; your input goes after <code>--end-of-options</code> or <code>--</code>.</li>
+          <li><strong>Machine-readable output.</strong> <code>--porcelain=v2 -z</code> and field separators, parsed by small tested functions.</li>
+          <li><strong>Careful with big folders.</strong> Never walks into <code>.git</code>, skips heavy directories, limits how many Git processes run at once.</li>
+          <li><strong>Destructive means confirmed.</strong> Discard, clean, reset and deletes are confirmed by the OS.</li>
+          <li><strong>Local only.</strong> No account, no cloud, no telemetry. Your code stays on your machine.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Beta / pricing -->
+    <section id="beta" class="beta container">
+      <p class="eyebrow center">Pricing</p>
+      <h2 class="center">Free while we're in beta</h2>
+      <p class="lead center lead--narrow">
+        No trial clock, no feature gates, no credit card. Use all of Alfa Git for free during the beta and tell us
+        what's missing.
+      </p>
+
+      <div class="plan">
+        <div class="plan__head">
+          <span class="tag tag--lg">Public beta</span>
+          <div class="plan__price"><span>$0</span><small>during the beta</small></div>
+          <p>Everything the app does today, and every update until the beta ends.</p>
+          <a class="btn btn--primary btn--lg btn--block" data-link="download" href="https://github.com/while1is1/alfagit-releases/releases/latest">Download the .deb</a>
+          <p class="fineprint">Linux x64 · Ubuntu, Debian and derivatives · Git 2.30+</p>
+        </div>
+        <ul class="checks plan__list">
+          <li>Unlimited workspaces and repositories</li>
+          <li>Commit graph, stashes and tags</li>
+          <li>Staging, diffs, amend and partial stashes</li>
+          <li>Conflict resolution and interactive rebase</li>
+          <li>File History, Blame and restoring a file from any commit</li>
+          <li>Built-in editor and repository search</li>
+          <li>Fetch All and auto-fetch</li>
+          <li>All updates during the beta</li>
+        </ul>
+      </div>
+      <p class="fineprint center">We'll announce plans well before the beta ends.</p>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq container">
+      <h2 class="center">Questions</h2>
+      <div class="faq__list">
+        <details>
+          <summary>Is it really free?</summary>
+          <p>Yes. During the beta every feature is free, with no account and no card. We'll announce pricing ahead
+            of time, before the beta ends.</p>
+        </details>
+        <details>
+          <summary>Which platforms are supported?</summary>
+          <p>Linux on x64, as a <code>.deb</code> package for Ubuntu, Debian and their derivatives. Other platforms
+            aren't offered for download yet.</p>
+        </details>
+        <details>
+          <summary>How do I install it?</summary>
+          <p>Download the <code>.deb</code> and install it with apt from the folder where you saved it:
+            <code>sudo apt install ./alfa-git_*_amd64.deb</code>. Alfa Git shows up in your applications and as the
+            <code>alfa-git</code> command. To update, install the new <code>.deb</code> the same way; to remove it,
+            <code>sudo apt remove alfa-git</code>.</p>
+        </details>
+        <details>
+          <summary>Do I need Git installed?</summary>
+          <p>Yes — Git 2.30 or newer. The <code>.deb</code> depends on it, so apt installs it if it's missing. Alfa
+            Git uses your own Git, with your config, credentials and hooks, instead of shipping its own.</p>
+        </details>
+        <details>
+          <summary>Does my code leave my machine?</summary>
+          <p>No. There's no account, no cloud sync and no telemetry. The only network traffic is the Git you ask
+            for: fetch, pull and push to your own remotes.</p>
+        </details>
+        <details>
+          <summary>How is it different from GitKraken, Fork or SourceTree?</summary>
+          <p>Those are great at one repository at a time. Alfa Git is built around a folder with many repositories:
+            it scans it once and shows the status of all of them together, then gives you a full client per repo.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section id="download" class="final">
+      <div class="container final__inner">
+        <img src="assets/icon.svg" alt="" width="88" height="88">
+        <h2>Stop touring twenty windows.</h2>
+        <p class="lead">Open your projects folder and see all of it at once.</p>
+        <div class="cta">
+          <a class="btn btn--primary btn--lg" data-link="download" href="https://github.com/while1is1/alfagit-releases/releases/latest">Download the beta for Linux</a>
+        </div>
+        <p class="fineprint">Free during the beta · No account needed</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a class="brand brand--sm" href="#top">
+        <img src="assets/icon.svg" alt="" width="22" height="22">
+        <span>Alfa Git</span>
+      </a>
+      <nav aria-label="Footer">
+        <a href="#features">Features</a>
+        <a href="#beta">Beta</a>
+        <a href="#faq">FAQ</a>
+        <a href="es/" hreflang="es" lang="es">Español</a>
+      </nav>
+      <p>© <span id="year">2026</span> Felipe Caceres</p>
+    </div>
+  </footer>
+
+  <script src="site.js"></script>
+</body>
+</html>

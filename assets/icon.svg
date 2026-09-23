@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-label="Alfa Git">
+  <defs>
+    <linearGradient id="background" x1="120" y1="80" x2="900" y2="960" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2e175b"/>
+      <stop offset="0.52" stop-color="#1b1739"/>
+      <stop offset="1" stop-color="#110f26"/>
+    </linearGradient>
+    <linearGradient id="branch" x1="250" y1="210" x2="800" y2="800" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#bf3dff"/>
+      <stop offset="0.52" stop-color="#e72a9a"/>
+      <stop offset="1" stop-color="#ff5b75"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="18" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1024" height="1024" rx="224" fill="url(#background)"/>
+  <path d="M324 268v126c0 102 83 185 185 185h78c70 0 127 57 127 127v62" fill="none" stroke="#7d4bce" stroke-width="72" stroke-linecap="round" stroke-linejoin="round" opacity=".48"/>
+  <path d="M324 268v126c0 102 83 185 185 185h78c70 0 127 57 127 127v62" fill="none" stroke="url(#branch)" stroke-width="48" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+  <circle cx="324" cy="250" r="104" fill="#1b1739" stroke="#d543df" stroke-width="38"/>
+  <circle cx="324" cy="250" r="48" fill="#f3b1ff"/>
+  <circle cx="714" cy="782" r="104" fill="#1b1739" stroke="#ff527b" stroke-width="38"/>
+  <circle cx="714" cy="782" r="48" fill="#ffd2df"/>
+  <circle cx="708" cy="555" r="78" fill="#1b1739" stroke="#bb46fa" stroke-width="34"/>
+  <circle cx="708" cy="555" r="31" fill="#f3b1ff"/>
+</svg>

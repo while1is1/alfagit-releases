@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Alfa Git — the Git client for the folder where all your repos live</title>
-  <meta name="description" content="Alfa Git scans your projects folder, finds every Git repository and shows each one with its own status. Commit graph, staging, conflicts, rebase and a built-in editor. Free during the beta.">
+  <meta name="description" content="Alfa Git scans your projects folder, finds every Git repository and shows each one with its own status. Commit graph, staging, branch review, conflicts, rebase, a built-in editor and terminal. Free during the beta.">
   <meta name="theme-color" content="#110f26">
   <meta property="og:title" content="Alfa Git — every repository at a glance">
   <meta property="og:description" content="A desktop Git client for the folder where all your repositories live. Free during the beta.">
@@ -66,7 +66,7 @@
         <figure class="window window--hero">
           <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i><span>Projects — Alfa Git</span></div>
           <img src="assets/workspace.png" width="1600" height="851"
-               alt="Alfa Git showing a workspace with fourteen repositories, each with its own status">
+               alt="Alfa Git showing a workspace with fifteen repositories, each with its own status">
         </figure>
       </div>
     </section>
@@ -116,7 +116,7 @@
             repos included — and gives each one a status dot: changes, conflicts, a merge or rebase in progress.
           </p>
           <ul class="checks">
-            <li><strong>Workspace Changes</strong>: one table to filter and sort by name, path or branch</li>
+            <li><strong>Workspace Changes</strong>: one line per repo, what needs attention first — conflicts, a stopped merge or rebase, commits to pull</li>
             <li><strong>Fetch All</strong> across every remote, with bounded concurrency</li>
             <li>Workspace tabs to keep several projects at hand</li>
           </ul>
@@ -141,6 +141,7 @@
             <li>Commit details with its files and diff side by side</li>
             <li>Interactive rebase: drag to reorder, squash, fixup, reword, drop</li>
             <li><strong>File History and Blame</strong>: every commit that touched a file, and who last changed each line</li>
+            <li><kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>F</kbd> finds commits by message, author, branch, tag or hash</li>
           </ul>
         </div>
         <figure class="window">
@@ -155,11 +156,13 @@
           <p class="eyebrow">Changes</p>
           <h3>Stage, diff and commit</h3>
           <p>
-            Merge, staged, unstaged and untracked groups — as a tree or as paths — with syntax-highlighted diffs.
-            Amend, stash everything or just a few files, and discard with a confirmation from the OS itself.
+            Merge, staged, unstaged and untracked groups — as a tree or as paths — with syntax-highlighted diffs
+            that mark <strong>the exact words that changed</strong> inside each line. Amend, stash everything or just a
+            few files, and discard with a confirmation from the OS itself.
           </p>
           <ul class="checks">
-            <li>Stage and unstage by file</li>
+            <li>Stage and unstage by file, or everything at once</li>
+            <li>Expand the context around a change, or read the whole file</li>
             <li>Discard and clean, confirmed natively</li>
             <li>Partial stashes, amend, pull modes</li>
           </ul>
@@ -172,6 +175,28 @@
       </article>
 
       <article class="feature feature--flip">
+        <div class="feature__text">
+          <p class="eyebrow">Review</p>
+          <h3>Review a branch like a pull request</h3>
+          <p>
+            Pick a base and a branch to compare: its commits, every file it changes and the diff, before you merge.
+            Alfa Git simulates the merge in memory and <strong>tells you which files would conflict</strong> — without
+            touching your working tree.
+          </p>
+          <ul class="checks">
+            <li>Mark files as <strong>Viewed</strong>; one the branch changes again comes back unread</li>
+            <li>Show a single commit or a range, not only the whole branch</li>
+            <li>Merge, squash or rebase from the header, like the button on a pull request</li>
+          </ul>
+        </div>
+        <figure class="window">
+          <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="assets/review.png" width="1600" height="851" loading="lazy"
+               alt="Review of feature/login against main, with one file that would conflict">
+        </figure>
+      </article>
+
+      <article class="feature">
         <div class="feature__text">
           <p class="eyebrow">Conflicts</p>
           <h3>Decide by looking, not by reading markers</h3>
@@ -192,7 +217,7 @@
         </figure>
       </article>
 
-      <article class="feature">
+      <article class="feature feature--flip">
         <div class="feature__text">
           <p class="eyebrow">Rebase</p>
           <h3>A rebase you can follow</h3>
@@ -212,7 +237,7 @@
         </figure>
       </article>
 
-      <article class="feature feature--flip">
+      <article class="feature">
         <div class="feature__text">
           <p class="eyebrow">Editor</p>
           <h3>An editor for the small fix</h3>
@@ -229,6 +254,27 @@
           <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
           <img src="assets/editor.png" width="1600" height="851" loading="lazy"
                alt="The built-in editor with a file open">
+        </figure>
+      </article>
+
+      <article class="feature feature--flip">
+        <div class="feature__text">
+          <p class="eyebrow">Terminal</p>
+          <h3>A terminal in every repository</h3>
+          <p>
+            Your own shell, already in the repository, right under the graph. One tab per terminal, and they keep
+            running while the panel is hidden — <kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>J</kbd> brings them back.
+          </p>
+          <ul class="checks">
+            <li>Survives reloading the window; closing the app ends every shell</li>
+            <li>Your prompt as it is, Nerd Font icons included</li>
+            <li>Or open your usual terminal app in the repository</li>
+          </ul>
+        </div>
+        <figure class="window">
+          <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="assets/terminal.png" width="1600" height="851" loading="lazy"
+               alt="The built-in terminal open under the commit graph of a repository">
         </figure>
       </article>
     </section>
@@ -267,6 +313,21 @@
           <span class="card__icon" aria-hidden="true">›_</span>
           <h4>Command log</h4>
           <p>Every Git command the app runs, with its exit code and real output, in the Output panel.</p>
+        </div>
+        <div class="card">
+          <span class="card__icon" aria-hidden="true">⏱</span>
+          <h4>Hooks you can follow</h4>
+          <p>A slow pre-commit or pre-push shows which hook runs and its last line of output — and Cancel stops it.</p>
+        </div>
+        <div class="card">
+          <span class="card__icon" aria-hidden="true">✓</span>
+          <h4>Checks your Git</h4>
+          <p>No Git, or one too old? It says what's missing and how to install it on your system.</p>
+        </div>
+        <div class="card">
+          <span class="card__icon" aria-hidden="true">⌨</span>
+          <h4>Keyboard first</h4>
+          <p>Shortcuts for the sidebar, the terminal, search and review — listed in the menus and tooltips.</p>
         </div>
       </div>
     </section>
@@ -321,9 +382,10 @@
           <li>Unlimited workspaces and repositories</li>
           <li>Commit graph, stashes and tags</li>
           <li>Staging, diffs, amend and partial stashes</li>
+          <li>Branch review with conflicts predicted before merging</li>
           <li>Conflict resolution and interactive rebase</li>
           <li>File History, Blame and restoring a file from any commit</li>
-          <li>Built-in editor and repository search</li>
+          <li>Built-in editor, terminal and repository search</li>
           <li>Fetch All and auto-fetch</li>
           <li>All updates during the beta</li>
         </ul>
@@ -355,7 +417,8 @@
         <details>
           <summary>Do I need Git installed?</summary>
           <p>Yes — Git 2.30 or newer. The <code>.deb</code> depends on it, so apt installs it if it's missing. Alfa
-            Git uses your own Git, with your config, credentials and hooks, instead of shipping its own.</p>
+            Git uses your own Git, with your config, credentials and hooks, instead of shipping its own. Predicting
+            conflicts in Review needs Git 2.38 or newer; the rest works from 2.30.</p>
         </details>
         <details>
           <summary>Does my code leave my machine?</summary>

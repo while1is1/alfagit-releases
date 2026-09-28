@@ -61,8 +61,10 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3h2v9.17l3.59-3.58L18 10l-6 6-6-6 1.41-1.41L11 12.17V3zM5 18h14v2H5z"/></svg>
             Descargar para Linux (.deb)
           </a>
+          <a class="btn btn--ghost btn--lg" data-link="appimage" href="https://github.com/while1is1/alfagit-releases/releases/latest">AppImage (cualquier distro)</a>
         </div>
-        <p class="fineprint">Gratis durante la beta · Ubuntu, Debian y derivadas · x64 · Instala Git si no lo tienes</p>
+        <p class="fineprint">Gratis durante la beta · x64 · .deb para Ubuntu, Debian y derivadas, AppImage para el resto · Se actualiza sola</p>
+        <p class="soon"><span class="tag">Próximamente</span> Windows y macOS</p>
 
         <figure class="window window--hero">
           <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i><span>Projects — Alfa Git</span></div>
@@ -377,7 +379,7 @@
           <div class="plan__price"><span>$0</span><small>durante la beta</small></div>
           <p>Todo lo que hace la app hoy, y cada actualización hasta que termine la beta.</p>
           <a class="btn btn--primary btn--lg btn--block" data-link="download" href="https://github.com/while1is1/alfagit-releases/releases/latest">Descargar el .deb</a>
-          <p class="fineprint">Linux x64 · Ubuntu, Debian y derivadas · Git 2.30+</p>
+          <p class="fineprint">Linux x64 · Ubuntu, Debian y derivadas · Git 2.30+ · Otras distros: <a data-link="appimage" href="https://github.com/while1is1/alfagit-releases/releases/latest">AppImage</a></p>
         </div>
         <ul class="checks plan__list">
           <li>Workspaces y repositorios ilimitados</li>
@@ -405,15 +407,23 @@
         </details>
         <details>
           <summary>¿En qué plataformas funciona?</summary>
-          <p>Linux x64, como paquete <code>.deb</code> para Ubuntu, Debian y sus derivadas. Por ahora no se ofrece
-            descarga para otras plataformas.</p>
+          <p>Linux x64: un paquete <code>.deb</code> para Ubuntu, Debian y sus derivadas, y un AppImage que funciona en
+            las demás distribuciones. Windows y macOS llegan pronto.</p>
         </details>
         <details>
           <summary>¿Cómo lo instalo?</summary>
           <p>Descarga el <code>.deb</code> e instálalo con apt desde la carpeta donde lo guardaste:
             <code>sudo apt install ./alfa-git_*_amd64.deb</code>. Alfa Git aparece en tus aplicaciones y como el
-            comando <code>alfa-git</code>. Para actualizar, instala el nuevo <code>.deb</code> de la misma forma; para
-            desinstalarlo, <code>sudo apt remove alfa-git</code>.</p>
+            comando <code>alfa-git</code>; para desinstalarlo, <code>sudo apt remove alfa-git</code>. En otras
+            distribuciones, descarga el AppImage, hazlo ejecutable con <code>chmod +x Alfa-Git-*.AppImage</code> y ábrelo
+            (necesita <code>libfuse2</code>).</p>
+        </details>
+        <details>
+          <summary>¿Cómo lo actualizo?</summary>
+          <p>Alfa Git se actualiza sola. Cuando sale una versión nueva la descarga en segundo plano y muestra
+            <strong>Restart to update</strong> en la barra superior; se instala cuando haces clic. El <code>.deb</code> pide
+            tu contraseña para instalarse, como cualquier paquete. También puedes buscar en el momento desde
+            <strong>Help › Check for Updates…</strong>.</p>
         </details>
         <details>
           <summary>¿Necesito tener Git instalado?</summary>
@@ -424,7 +434,8 @@
         <details>
           <summary>¿Mi código sale de mi máquina?</summary>
           <p>No. No hay cuenta, ni sincronización en la nube, ni telemetría. El único tráfico de red es el Git que tú
-            pides: fetch, pull y push a tus propios remotos.</p>
+            pides (fetch, pull y push a tus propios remotos) y la consulta de versiones nuevas en GitHub, que no envía
+            nada sobre ti ni sobre tus repositorios.</p>
         </details>
         <details>
           <summary>¿En qué se diferencia de GitKraken, Fork o SourceTree?</summary>
@@ -441,9 +452,10 @@
         <h2>Deja de recorrer veinte ventanas.</h2>
         <p class="lead">Abre tu carpeta de proyectos y míralo todo a la vez.</p>
         <div class="cta">
-          <a class="btn btn--primary btn--lg" data-link="download" href="https://github.com/while1is1/alfagit-releases/releases/latest">Descargar la beta para Linux</a>
+          <a class="btn btn--primary btn--lg" data-link="download" href="https://github.com/while1is1/alfagit-releases/releases/latest">Descargar la beta para Linux (.deb)</a>
+          <a class="btn btn--ghost btn--lg" data-link="appimage" href="https://github.com/while1is1/alfagit-releases/releases/latest">AppImage</a>
         </div>
-        <p class="fineprint">Gratis durante la beta · Sin cuenta</p>
+        <p class="fineprint">Gratis durante la beta · Sin cuenta · Windows y macOS muy pronto</p>
       </div>
     </section>
   </main>

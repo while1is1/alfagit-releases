@@ -60,8 +60,10 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3h2v9.17l3.59-3.58L18 10l-6 6-6-6 1.41-1.41L11 12.17V3zM5 18h14v2H5z"/></svg>
             Download for Linux (.deb)
           </a>
+          <a class="btn btn--ghost btn--lg" data-link="appimage" href="https://github.com/while1is1/alfagit-releases/releases/latest">AppImage (any distro)</a>
         </div>
-        <p class="fineprint">Free during the beta · Ubuntu, Debian and derivatives · x64 · Installs Git if it is missing</p>
+        <p class="fineprint">Free during the beta · x64 · .deb for Ubuntu, Debian and derivatives, AppImage for the rest · Updates itself</p>
+        <p class="soon"><span class="tag">Coming soon</span> Windows and macOS</p>
 
         <figure class="window window--hero">
           <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i><span>Projects — Alfa Git</span></div>
@@ -376,7 +378,7 @@
           <div class="plan__price"><span>$0</span><small>during the beta</small></div>
           <p>Everything the app does today, and every update until the beta ends.</p>
           <a class="btn btn--primary btn--lg btn--block" data-link="download" href="https://github.com/while1is1/alfagit-releases/releases/latest">Download the .deb</a>
-          <p class="fineprint">Linux x64 · Ubuntu, Debian and derivatives · Git 2.30+</p>
+          <p class="fineprint">Linux x64 · Ubuntu, Debian and derivatives · Git 2.30+ · Other distros: <a data-link="appimage" href="https://github.com/while1is1/alfagit-releases/releases/latest">AppImage</a></p>
         </div>
         <ul class="checks plan__list">
           <li>Unlimited workspaces and repositories</li>
@@ -404,15 +406,23 @@
         </details>
         <details>
           <summary>Which platforms are supported?</summary>
-          <p>Linux on x64, as a <code>.deb</code> package for Ubuntu, Debian and their derivatives. Other platforms
-            aren't offered for download yet.</p>
+          <p>Linux on x64: a <code>.deb</code> package for Ubuntu, Debian and their derivatives, and an AppImage that
+            runs on the other distributions. Windows and macOS are coming soon.</p>
         </details>
         <details>
           <summary>How do I install it?</summary>
           <p>Download the <code>.deb</code> and install it with apt from the folder where you saved it:
             <code>sudo apt install ./alfa-git_*_amd64.deb</code>. Alfa Git shows up in your applications and as the
-            <code>alfa-git</code> command. To update, install the new <code>.deb</code> the same way; to remove it,
-            <code>sudo apt remove alfa-git</code>.</p>
+            <code>alfa-git</code> command; to remove it, <code>sudo apt remove alfa-git</code>. On other distributions,
+            download the AppImage, make it executable with <code>chmod +x Alfa-Git-*.AppImage</code> and open it (it
+            needs <code>libfuse2</code>).</p>
+        </details>
+        <details>
+          <summary>How do I update it?</summary>
+          <p>Alfa Git updates itself. When a new version is out it downloads it in the background and shows
+            <strong>Restart to update</strong> in the toolbar; it installs when you click it. The <code>.deb</code> asks
+            for your password to install, like any package. You can also look now from <strong>Help › Check for
+            Updates…</strong>.</p>
         </details>
         <details>
           <summary>Do I need Git installed?</summary>
@@ -423,7 +433,8 @@
         <details>
           <summary>Does my code leave my machine?</summary>
           <p>No. There's no account, no cloud sync and no telemetry. The only network traffic is the Git you ask
-            for: fetch, pull and push to your own remotes.</p>
+            for (fetch, pull and push to your own remotes) and the check for new versions on GitHub, which sends
+            nothing about you or your repositories.</p>
         </details>
         <details>
           <summary>How is it different from GitKraken, Fork or SourceTree?</summary>
@@ -440,9 +451,10 @@
         <h2>Stop touring twenty windows.</h2>
         <p class="lead">Open your projects folder and see all of it at once.</p>
         <div class="cta">
-          <a class="btn btn--primary btn--lg" data-link="download" href="https://github.com/while1is1/alfagit-releases/releases/latest">Download the beta for Linux</a>
+          <a class="btn btn--primary btn--lg" data-link="download" href="https://github.com/while1is1/alfagit-releases/releases/latest">Download the beta for Linux (.deb)</a>
+          <a class="btn btn--ghost btn--lg" data-link="appimage" href="https://github.com/while1is1/alfagit-releases/releases/latest">AppImage</a>
         </div>
-        <p class="fineprint">Free during the beta · No account needed</p>
+        <p class="fineprint">Free during the beta · No account needed · Windows and macOS coming soon</p>
       </div>
     </section>
   </main>

@@ -102,6 +102,7 @@ p { margin: 0; }
   background: rgba(191, 61, 255, 0.14); border: 1px solid rgba(191, 61, 255, 0.35);
 }
 .tag--lg { font-size: 0.75rem; padding: 6px 10px; }
+.soon { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; font-size: 0.85rem; color: var(--text-muted); }
 
 /* Nav */
 .nav {

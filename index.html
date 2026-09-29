@@ -37,7 +37,7 @@
       </nav>
       <div class="nav__actions">
         <a class="lang" href="es/" hreflang="es" lang="es" title="Español">ES</a>
-        <a class="btn btn--primary btn--sm" data-link="download" href="https://github.com/while1is1/alfagit-releases/releases/latest">Download</a>
+        <a class="btn btn--primary btn--sm" href="#download">Download</a>
       </div>
     </div>
   </header>
@@ -56,14 +56,13 @@
           Alfa Git finds every repo in <code>~/Projects</code> and shows which ones have work you forgot to commit.
         </p>
         <div class="cta">
-          <a class="btn btn--primary btn--lg" data-link="download" href="https://github.com/while1is1/alfagit-releases/releases/latest">
+          <a class="btn btn--primary btn--lg" href="#download">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3h2v9.17l3.59-3.58L18 10l-6 6-6-6 1.41-1.41L11 12.17V3zM5 18h14v2H5z"/></svg>
-            Download for Linux (.deb)
+            <span data-download-label data-label-mac="Download for macOS" data-label-windows="Download for Windows" data-label-linux="Download for Linux">Download the beta</span>
           </a>
-          <a class="btn btn--ghost btn--lg" data-link="appimage" href="https://github.com/while1is1/alfagit-releases/releases/latest">AppImage (any distro)</a>
+          <a class="btn btn--ghost btn--lg" href="#download" data-os-link="all">See all platforms</a>
         </div>
-        <p class="fineprint">Free during the beta · x64 · .deb for Ubuntu, Debian and derivatives, AppImage for the rest · Updates itself</p>
-        <p class="soon"><span class="tag">Coming soon</span> Windows and macOS</p>
+        <p class="fineprint">Free during the beta · macOS (Apple Silicon), Windows x64 and Linux x64 · Updates itself</p>
 
         <figure class="window window--hero">
           <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i><span>Projects — Alfa Git</span></div>
@@ -378,8 +377,8 @@
           <div class="plan__price"><span>$0</span><small>during the beta</small></div>
           <p class="plan__after">After the beta: <strong>$15 USD</strong> a year.</p>
           <p>Everything the app does today, and every update along the way.</p>
-          <a class="btn btn--primary btn--lg btn--block" data-link="download" href="https://github.com/while1is1/alfagit-releases/releases/latest">Download the .deb</a>
-          <p class="fineprint">Linux x64 · Ubuntu, Debian and derivatives · Git 2.30+ · Other distros: <a data-link="appimage" href="https://github.com/while1is1/alfagit-releases/releases/latest">AppImage</a></p>
+          <a class="btn btn--primary btn--lg btn--block" href="#download">Download the beta</a>
+          <p class="fineprint">macOS · Windows · Linux · Git 2.30+</p>
         </div>
         <ul class="checks plan__list">
           <li>Unlimited workspaces and repositories</li>
@@ -407,23 +406,23 @@
         </details>
         <details>
           <summary>Which platforms are supported?</summary>
-          <p>Linux on x64: a <code>.deb</code> package for Ubuntu, Debian and their derivatives, and an AppImage that
-            runs on the other distributions. Windows and macOS are coming soon.</p>
+          <p>macOS on Apple Silicon (M1 or newer), Windows 10 and 11 on x64, and Linux on x64: a <code>.deb</code> package
+            for Ubuntu, Debian and their derivatives, and an AppImage that runs on the other distributions.</p>
         </details>
         <details>
           <summary>How do I install it?</summary>
-          <p>Download the <code>.deb</code> and install it with apt from the folder where you saved it:
-            <code>sudo apt install ./alfa-git_*_amd64.deb</code>. Alfa Git shows up in your applications and as the
-            <code>alfa-git</code> command; to remove it, <code>sudo apt remove alfa-git</code>. On other distributions,
-            download the AppImage, make it executable with <code>chmod +x Alfa-Git-*.AppImage</code> and open it (it
-            needs <code>libfuse2</code>).</p>
+          <p>Each system has its own steps in <a class="link" href="#download">Download</a>. While Alfa Git is in beta
+            its builds are not signed by Apple or Microsoft yet, so macOS asks you to trust the app once (System
+            Settings › Privacy &amp; Security › <strong>Open Anyway</strong>) and Windows SmartScreen may ask you to
+            click <strong>More info › Run anyway</strong>.</p>
         </details>
         <details>
           <summary>How do I update it?</summary>
-          <p>Alfa Git updates itself. When a new version is out it downloads it in the background and shows
-            <strong>Restart to update</strong> in the toolbar; it installs when you click it. The <code>.deb</code> asks
-            for your password to install, like any package. You can also look now from <strong>Help › Check for
-            Updates…</strong>.</p>
+          <p>On Windows and Linux, Alfa Git updates itself: it downloads new versions in the background and shows
+            <strong>Restart to update</strong> in the toolbar; it installs when you click it. On macOS it tells you
+            when a new version is out and brings you to this page to download it. If you fall several versions
+            behind, it asks you to update so you don't miss anything. You can also look now from <strong>Help ›
+            Check for Updates…</strong>.</p>
         </details>
         <details>
           <summary>Do I need Git installed?</summary>
@@ -445,17 +444,92 @@
       </div>
     </section>
 
-    <!-- Final CTA -->
-    <section id="download" class="final">
-      <div class="container final__inner">
-        <img src="assets/icon.svg" alt="" width="88" height="88">
-        <h2>Stop touring twenty windows.</h2>
-        <p class="lead">Open your projects folder and see all of it at once.</p>
-        <div class="cta">
-          <a class="btn btn--primary btn--lg" data-link="download" href="https://github.com/while1is1/alfagit-releases/releases/latest">Download the beta for Linux (.deb)</a>
-          <a class="btn btn--ghost btn--lg" data-link="appimage" href="https://github.com/while1is1/alfagit-releases/releases/latest">AppImage</a>
+    <!-- Download: one tab per system, with its file and install steps -->
+    <section id="download" class="download">
+      <div class="container download__inner">
+        <img class="download__icon" src="assets/icon.svg" alt="" width="72" height="72">
+        <p class="eyebrow center">Download</p>
+        <h2 class="center">Get the beta for your system</h2>
+        <p class="lead center">Free during the beta, no account needed. Pick your system for the file and the steps to install it.</p>
+
+        <div class="os-tabs" role="tablist" aria-label="Operating system" hidden>
+          <button type="button" class="os-tab" role="tab" id="tab-mac" aria-controls="panel-mac" data-os="mac">macOS</button>
+          <button type="button" class="os-tab" role="tab" id="tab-windows" aria-controls="panel-windows" data-os="windows">Windows</button>
+          <button type="button" class="os-tab" role="tab" id="tab-linux" aria-controls="panel-linux" data-os="linux">Linux</button>
         </div>
-        <p class="fineprint">Free during the beta · No account needed · Windows and macOS coming soon</p>
+
+        <div class="os-panel" id="panel-mac" role="tabpanel" aria-labelledby="tab-mac" data-os="mac" tabindex="0">
+          <div class="os-panel__head">
+            <div>
+              <h3>macOS</h3>
+              <p class="os-panel__meta">Apple Silicon (M1 or newer)</p>
+            </div>
+            <div class="os-panel__actions">
+              <a class="btn btn--primary btn--lg" data-link="dmg" href="https://github.com/while1is1/alfagit-releases/releases/latest"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3h2v9.17l3.59-3.58L18 10l-6 6-6-6 1.41-1.41L11 12.17V3zM5 18h14v2H5z"/></svg>Download for macOS</a>
+              <span class="os-panel__file">.dmg · Apple Silicon</span>
+            </div>
+          </div>
+          <div class="notice" role="note">
+            <span class="tag">Beta</span>
+            <p><strong>This is a beta, not a production release.</strong> Alfa Git is in public beta and not notarized by Apple yet, so the first time you open it macOS says it cannot verify the app. You tell macOS you trust it once, and from then on it opens like any other app.</p>
+          </div>
+          <ol class="steps">
+            <li><strong>Open the <code>.dmg</code></strong> and drag <strong>Alfa Git</strong> into <strong>Applications</strong>.</li>
+            <li><strong>Open Alfa Git from Applications.</strong> macOS blocks it the first time: close the warning with <strong>Done</strong> (not “Move to Trash”).</li>
+            <li><strong>Trust it:</strong> open <strong>System Settings › Privacy &amp; Security</strong>, scroll down to <em>Security</em> and click <strong>Open Anyway</strong> next to “Alfa Git was blocked”. Confirm with your password or Touch ID.</li>
+            <li><strong>Open it again</strong> and click <strong>Open</strong>. That’s it: macOS remembers your choice.</li>
+          </ol>
+          <details class="os-panel__alt">
+            <summary>macOS says the app “is damaged”, or you prefer the terminal?</summary>
+            <p>That is the same beta warning worded differently. Remove the quarantine flag that macOS puts on downloads and open it again:</p>
+            <pre><code>xattr -dr com.apple.quarantine "/Applications/Alfa Git.app"</code></pre>
+          </details>
+          <p class="os-panel__note"><strong>Updates:</strong> Alfa Git checks for new versions and shows <strong>vX.Y.Z available</strong> in the toolbar; it brings you back here to download it. Replace the app in Applications and trust it once more (only while we are in beta). Needs Git 2.30+: <code>xcode-select --install</code> installs it.</p>
+        </div>
+
+        <div class="os-panel" id="panel-windows" role="tabpanel" aria-labelledby="tab-windows" data-os="windows" tabindex="0">
+          <div class="os-panel__head">
+            <div>
+              <h3>Windows</h3>
+              <p class="os-panel__meta">Windows 10 and 11 · x64</p>
+            </div>
+            <div class="os-panel__actions">
+              <a class="btn btn--primary btn--lg" data-link="exe" href="https://github.com/while1is1/alfagit-releases/releases/latest"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3h2v9.17l3.59-3.58L18 10l-6 6-6-6 1.41-1.41L11 12.17V3zM5 18h14v2H5z"/></svg>Download for Windows</a>
+              <span class="os-panel__file">.exe installer · x64</span>
+            </div>
+          </div>
+          <div class="notice" role="note">
+            <span class="tag">Beta</span>
+            <p><strong>This is a beta, not a production release.</strong> Alfa Git is in public beta and its installer is not code-signed yet, so Windows SmartScreen may stop it the first time. It installs for your user only, with no administrator rights.</p>
+          </div>
+          <ol class="steps">
+            <li><strong>Run the installer</strong> (<code>Alfa Git-…-win-x64-setup.exe</code>) from your Downloads folder.</li>
+            <li>If you see <strong>“Windows protected your PC”</strong>, click <strong>More info</strong> and then <strong>Run anyway</strong>.</li>
+            <li><strong>Choose where to install it</strong> (the default is fine) and finish. Alfa Git shows up in the Start menu and on the desktop.</li>
+          </ol>
+          <p class="os-panel__note"><strong>Updates:</strong> Alfa Git updates itself. It downloads new versions in the background and shows <strong>Restart to update</strong> in the toolbar. If the automatic download fails, it brings you back here. Needs <a class="link" href="https://git-scm.com/downloads/win">Git for Windows</a> 2.30+.</p>
+        </div>
+
+        <div class="os-panel" id="panel-linux" role="tabpanel" aria-labelledby="tab-linux" data-os="linux" tabindex="0">
+          <div class="os-panel__head">
+            <div>
+              <h3>Linux</h3>
+              <p class="os-panel__meta">x64 · Ubuntu, Debian and derivatives, or any distro</p>
+            </div>
+            <div class="os-panel__actions">
+              <a class="btn btn--primary btn--lg" data-link="deb" href="https://github.com/while1is1/alfagit-releases/releases/latest"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3h2v9.17l3.59-3.58L18 10l-6 6-6-6 1.41-1.41L11 12.17V3zM5 18h14v2H5z"/></svg>Download the .deb</a>
+              <a class="btn btn--ghost" data-link="appimage" href="https://github.com/while1is1/alfagit-releases/releases/latest">AppImage (any distro)</a>
+            </div>
+          </div>
+          <ol class="steps">
+            <li><strong>Ubuntu, Debian and derivatives:</strong> install the <code>.deb</code> with apt from the folder where you saved it: <code>sudo apt install ./alfa-git_*_amd64.deb</code>. apt installs Git if it is missing.</li>
+            <li><strong>Other distributions:</strong> download the AppImage, make it executable with <code>chmod +x Alfa-Git-*.AppImage</code> and open it (it needs <code>libfuse2</code>).</li>
+            <li>To remove the <code>.deb</code>: <code>sudo apt remove alfa-git</code>.</li>
+          </ol>
+          <p class="os-panel__note"><strong>Updates:</strong> Alfa Git updates itself and shows <strong>Restart to update</strong> in the toolbar; the <code>.deb</code> asks for your password to install, like any package.</p>
+        </div>
+
+        <p class="fineprint center">All files and release notes are on <a class="link" href="https://github.com/while1is1/alfagit-releases/releases/latest">GitHub Releases</a>.</p>
       </div>
     </section>
   </main>

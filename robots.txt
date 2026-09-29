@@ -1,0 +1,37 @@
+# Alfa Git — https://alfagit.com
+# Search engines and AI assistants are welcome: the site describes a desktop app, there is nothing private here.
+User-agent: *
+Allow: /
+
+# AI assistants that answer questions and recommend tools (search / live retrieval).
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://alfagit.com/sitemap.xml

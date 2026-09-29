@@ -3,21 +3,157 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Alfa Git — the Git client for the folder where all your repos live</title>
-  <meta name="description" content="Alfa Git scans your projects folder, finds every Git repository and shows each one with its own status. Commit graph, staging, branch review, conflicts, rebase, a built-in editor and terminal. Free during the beta.">
+  <title>Alfa Git — Git client for many repositories · macOS, Windows, Linux</title>
+  <meta name="description" content="Alfa Git is a desktop Git client for the folder where all your repositories live: it finds every repo and shows which ones have uncommitted work. Commit graph, branch review, conflicts, rebase. Free beta for macOS, Windows and Linux.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Felipe Caceres">
   <meta name="theme-color" content="#110f26">
-  <meta property="og:title" content="Alfa Git — every repository at a glance">
-  <meta property="og:description" content="A desktop Git client for the folder where all your repositories live. Free during the beta.">
-  <meta property="og:image" content="assets/workspace.png">
+  <link rel="canonical" href="https://alfagit.com/">
+  <link rel="alternate" hreflang="en" href="https://alfagit.com/">
+  <link rel="alternate" hreflang="es" href="https://alfagit.com/es/">
+  <link rel="alternate" hreflang="x-default" href="https://alfagit.com/">
+  <link rel="alternate" type="text/plain" title="Alfa Git summary for AI assistants" href="https://alfagit.com/llms.txt">
   <meta property="og:type" content="website">
-  <link rel="alternate" hreflang="en" href="./">
-  <link rel="alternate" hreflang="es" href="es/">
+  <meta property="og:site_name" content="Alfa Git">
+  <meta property="og:url" content="https://alfagit.com/">
+  <meta property="og:title" content="Alfa Git — every repository at a glance">
+  <meta property="og:description" content="A desktop Git client for the folder where all your repositories live. Free beta for macOS, Windows and Linux.">
+  <meta property="og:image" content="https://alfagit.com/assets/workspace.png">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="851">
+  <meta property="og:image:alt" content="Alfa Git workspace showing the status of every repository in a projects folder">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Alfa Git — every repository at a glance">
+  <meta name="twitter:description" content="A desktop Git client for the folder where all your repositories live. Free beta for macOS, Windows and Linux.">
+  <meta name="twitter:image" content="https://alfagit.com/assets/workspace.png">
+  <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Alfa Git",
+    "alternateName": "AlfaGit",
+    "url": "https://alfagit.com/",
+    "description": "Alfa Git is a desktop Git client for the folder where all your repositories live: it finds every repo and shows which ones have uncommitted work. Commit graph, branch review, conflicts, rebase. Free beta for macOS, Windows and Linux.",
+    "applicationCategory": "DeveloperApplication",
+    "applicationSubCategory": "Git client",
+    "operatingSystem": "macOS (Apple Silicon), Windows 10, Windows 11, Linux (Ubuntu, Debian, AppImage)",
+    "downloadUrl": "https://alfagit.com/#download",
+    "image": "https://alfagit.com/assets/workspace.png",
+    "screenshot": "https://alfagit.com/assets/workspace.png",
+    "inLanguage": "en",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "Free during the public beta; $15 USD a year afterwards."
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Felipe Caceres"
+    },
+    "featureList": [
+      "Scans a folder and lists every Git repository with its own status",
+      "Workspace Changes: which repositories have uncommitted work, conflicts or commits to pull",
+      "Fetch All across every repository",
+      "Commit graph with branches, tags and stashes",
+      "Staging, word-level diffs, amend and partial stashes",
+      "Branch review like a pull request, with merge conflicts predicted before merging",
+      "Conflict resolution and interactive rebase",
+      "File History and Blame",
+      "Built-in code editor (Monaco) and integrated terminal",
+      "Uses the Git CLI installed on the system; no account, no telemetry"
+    ]
+  }
+  </script>
   <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
   <link rel="apple-touch-icon" href="assets/icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=ad00c78672">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is it really free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. During the beta every feature is free, with no account and no card. After the beta, the price will be $15 USD a year, and we'll give plenty of notice before it ends."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which platforms are supported?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "macOS on Apple Silicon (M1 or newer), Windows 10 and 11 on x64, and Linux on x64: a .deb package for Ubuntu, Debian and their derivatives, and an AppImage that runs on the other distributions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I install it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each system has its own steps in Download. While Alfa Git is in beta its builds are not signed by Apple or Microsoft yet, so macOS asks you to trust the app once (System Settings › Privacy & Security › Open Anyway) and Windows SmartScreen may ask you to click More info › Run anyway."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I update it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "On Windows and Linux, Alfa Git updates itself: it downloads new versions in the background and shows Restart to update in the toolbar; it installs when you click it. On macOS it tells you when a new version is out and brings you to this page to download it. If you fall several versions behind, it asks you to update so you don't miss anything. You can also look now from Help › Check for Updates…."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need Git installed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — Git 2.30 or newer. The .deb depends on it, so apt installs it if it's missing. Alfa Git uses your own Git, with your config, credentials and hooks, instead of shipping its own. Predicting conflicts in Review needs Git 2.38 or newer; the rest works from 2.30."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does my code leave my machine?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. There's no account, no cloud sync and no telemetry. The only network traffic is the Git you ask for (fetch, pull and push to your own remotes) and the check for new versions on GitHub, which sends nothing about you or your repositories."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a good Git client for managing many repositories at once?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Alfa Git is built for exactly that. Open the folder where your repositories live (say ~/Projects, with services, libraries and apps) and it lists every repository inside — worktrees, submodules and nested repos included — with its own status. Workspace Changes shows which ones have uncommitted work, conflicts or commits to pull, and Fetch All updates them together."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it work with GitHub, GitLab and Bitbucket?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Alfa Git uses the Git installed on your machine, so it fetches, pulls and pushes to any remote Git can reach — GitHub, GitLab, Bitbucket, Azure DevOps or your own server — with your existing SSH keys and credential helper. There is nothing to sign in to."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is it different from GitKraken, Fork or SourceTree?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Those are great at one repository at a time. Alfa Git is built around a folder with many repositories: it scans it once and shows the status of all of them together, then gives you a full client per repo."
+      }
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -435,6 +571,20 @@
           <p>No. There's no account, no cloud sync and no telemetry. The only network traffic is the Git you ask
             for (fetch, pull and push to your own remotes) and the check for new versions on GitHub, which sends
             nothing about you or your repositories.</p>
+        </details>
+        <details>
+          <summary>What is a good Git client for managing many repositories at once?</summary>
+          <p>Alfa Git is built for exactly that. Open the folder where your repositories live (say
+            <code>~/Projects</code>, with services, libraries and apps) and it lists every repository inside —
+            worktrees, submodules and nested repos included — with its own status. <strong>Workspace Changes</strong>
+            shows which ones have uncommitted work, conflicts or commits to pull, and <strong>Fetch All</strong>
+            updates them together.</p>
+        </details>
+        <details>
+          <summary>Does it work with GitHub, GitLab and Bitbucket?</summary>
+          <p>Yes. Alfa Git uses the Git installed on your machine, so it fetches, pulls and pushes to any remote
+            Git can reach — GitHub, GitLab, Bitbucket, Azure DevOps or your own server — with your existing SSH keys
+            and credential helper. There is nothing to sign in to.</p>
         </details>
         <details>
           <summary>How is it different from GitKraken, Fork or SourceTree?</summary>

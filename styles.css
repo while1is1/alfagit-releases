@@ -241,6 +241,8 @@ p { margin: 0; }
 .plan__price span { font-size: 4rem; font-weight: 800; color: var(--text-strong); letter-spacing: -0.04em; line-height: 1; }
 .plan__price small { color: var(--text-muted); font-size: 0.95rem; }
 .plan__head > p { color: var(--text-muted); margin-bottom: 28px; }
+.plan__head > .plan__after { margin: 0 0 12px; padding-top: 14px; border-top: 1px solid var(--border); color: var(--text); }
+.plan__after strong { color: var(--text-strong); }
 .plan__list { padding: 40px; margin: 0; align-content: center; }
 .beta > .fineprint { margin-top: 24px; }
 

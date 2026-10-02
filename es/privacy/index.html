@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Política de privacidad — Alfa Git</title>
+  <meta name="description" content="Alfa Git no tiene cuentas, telemetría ni analítica. Qué guarda y qué envía la app de escritorio y alfagit.com, en palabras simples.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#110f26">
+  <link rel="canonical" href="https://alfagit.com/es/privacy/">
+  <link rel="alternate" hreflang="en" href="https://alfagit.com/privacy/">
+  <link rel="alternate" hreflang="es" href="https://alfagit.com/es/privacy/">
+  <link rel="alternate" hreflang="x-default" href="https://alfagit.com/privacy/">
+  <link rel="icon" href="../../assets/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css?v=74f2b07045">
+</head>
+<body>
+  <a class="skip" href="#main">Ir al contenido</a>
+
+  <header class="nav" id="top">
+    <div class="container nav__inner">
+      <a class="brand" href="../" aria-label="Alfa Git, inicio">
+        <img src="../../assets/icon.svg" alt="" width="32" height="32">
+        <span>Alfa Git</span>
+        <span class="tag">Beta</span>
+      </a>
+      <div class="nav__actions">
+        <a class="lang" href="../../privacy/" hreflang="en" lang="en" title="English">EN</a>
+        <a class="btn btn--primary btn--sm" href="../#download">Descargar</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="container legal">
+    <h1>Política de privacidad</h1>
+    <p class="legal__date">Última actualización: 2 de octubre de 2026</p>
+
+    <p class="legal__lead">Alfa Git no tiene cuentas, telemetría, analítica ni publicidad. No recopila, vende ni comparte
+      datos personales. Esta página explica qué guardan y qué envían la app de escritorio y este sitio.</p>
+
+    <h2>La app de escritorio</h2>
+    <h3>Lo que queda en tu computador</h3>
+    <ul>
+      <li>Los workspaces que abres, los repositorios encontrados en ellos y tu configuración. Se guardan en una base de
+        datos local en la carpeta de perfil de la app y nunca salen de tu computador.</li>
+      <li>El registro de los comandos Git que ejecutó la app vive solo en memoria, sin contraseñas ni tokens, y se
+        pierde al cerrar la app.</li>
+      <li>Alfa Git no guarda contraseñas de Git. La autenticación la hacen Git y el credential helper o las llaves SSH
+        que ya usas.</li>
+    </ul>
+    <p>Desinstalar la app y borrar su carpeta de perfil elimina todo.</p>
+
+    <h3>Lo que pasa por la red</h3>
+    <ul>
+      <li><strong>Las operaciones Git que pides.</strong> Fetch, pull, push y clone se conectan a los remotos
+        configurados en tus repositorios (por ejemplo GitHub, GitLab o tu propio servidor). A ese tráfico se aplican
+        sus políticas de privacidad.</li>
+      <li><strong>La búsqueda de nuevas versiones.</strong> Las copias descargadas desde este sitio le piden a GitHub
+        (<code>github.com</code> y <code>api.github.com</code>) las versiones publicadas, al abrirse y cada pocas horas.
+        En Linux, la versión nueva también se descarga desde GitHub. Estas consultas no llevan información sobre ti ni
+        sobre tus repositorios; como cualquier petición web, GitHub ve tu dirección IP. La versión de Microsoft Store
+        no las hace: la actualiza la Store.</li>
+      <li><strong>Los enlaces que abres.</strong> Páginas como la web de un repositorio o la descarga de Git se abren
+        en tu navegador.</li>
+    </ul>
+    <p>Nada más: ni estadísticas de uso, ni reportes de errores, ni identificadores.</p>
+
+    <h2>Este sitio</h2>
+    <ul>
+      <li>alfagit.com no usa cookies ni analítica.</li>
+      <li>Lo sirve GitHub Pages a través de Cloudflare y carga fuentes desde Google Fonts. Esos proveedores reciben tu
+        dirección IP y datos del navegador para entregar la página, según sus propias políticas de privacidad.</li>
+      <li>Para que los botones de descarga apunten a los archivos más recientes, la página consulta a GitHub la última
+        versión.</li>
+      <li>La pestaña de sistema operativo que eliges en la sección de descarga se recuerda en el almacenamiento local de
+        tu navegador, solo en tu dispositivo.</li>
+    </ul>
+
+    <h2>Menores de edad</h2>
+    <p>Alfa Git es una herramienta para desarrolladores y no está dirigida a menores. No recopila datos de nadie,
+      tampoco de menores.</p>
+
+    <h2>Cambios</h2>
+    <p>Si esta política cambia, la nueva versión se publica en esta página con una nueva fecha.</p>
+
+    <h2>Contacto</h2>
+    <p>Consultas sobre privacidad: <a class="link" href="mailto:while1is1cl@gmail.com">while1is1cl@gmail.com</a>.</p>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a class="brand brand--sm" href="../">
+        <img src="../../assets/icon.svg" alt="" width="22" height="22">
+        <span>Alfa Git</span>
+      </a>
+      <nav aria-label="Pie de página">
+        <a href="../#features">Funciones</a>
+        <a href="../#faq">Preguntas</a>
+        <a href="./">Privacidad</a>
+        <a href="../../privacy/" hreflang="en" lang="en">English</a>
+      </nav>
+      <p>© 2026 Felipe Caceres</p>
+    </div>
+  </footer>
+</body>
+</html>

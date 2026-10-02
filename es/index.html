@@ -100,7 +100,7 @@
       "name": "¿Cómo lo instalo?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Cada sistema tiene sus pasos en Descarga. Mientras Alfa Git esté en beta sus builds todavía no están firmadas por Apple ni Microsoft, así que macOS te pide confiar en la app una vez (Ajustes del Sistema › Privacidad y seguridad › Abrir igualmente) y Windows SmartScreen puede pedirte Más información › Ejecutar de todas formas."
+        "text": "Cada sistema tiene sus pasos en Descarga. En Windows, instálala desde la Microsoft Store: sin avisos y sin permisos de administrador. Mientras Alfa Git esté en beta la build de macOS todavía no está notarizada por Apple, así que macOS te pide confiar en la app una vez (Ajustes del Sistema › Privacidad y seguridad › Abrir igualmente)."
       }
     },
     {
@@ -108,7 +108,7 @@
       "name": "¿Cómo lo actualizo?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "En Windows y Linux, Alfa Git se actualiza sola: descarga las versiones nuevas en segundo plano y muestra Restart to update en la barra superior; se instala cuando haces clic. En macOS te avisa cuando sale una versión nueva y te trae a esta página para descargarla. Si te quedas varias versiones atrás, te pide actualizar para que no te pierdas nada. También puedes buscar en el momento desde Help › Check for Updates…."
+        "text": "En Windows la actualiza la Microsoft Store. En Linux (y con el instalador .exe de Windows), Alfa Git se actualiza sola: descarga las versiones nuevas en segundo plano y muestra Restart to update en la barra superior; se instala cuando haces clic. En macOS te avisa cuando sale una versión nueva y te trae a esta página para descargarla. Si te quedas varias versiones atrás, te pide actualizar para que no te pierdas nada. También puedes buscar en el momento desde Help › Check for Updates…."
       }
     },
     {
@@ -547,14 +547,16 @@
         </details>
         <details>
           <summary>¿Cómo lo instalo?</summary>
-          <p>Cada sistema tiene sus pasos en <a class="link" href="#download">Descarga</a>. Mientras Alfa Git esté en
-            beta sus builds todavía no están firmadas por Apple ni Microsoft, así que macOS te pide confiar en la app
-            una vez (Ajustes del Sistema › Privacidad y seguridad › <strong>Abrir igualmente</strong>) y Windows
-            SmartScreen puede pedirte <strong>Más información › Ejecutar de todas formas</strong>.</p>
+          <p>Cada sistema tiene sus pasos en <a class="link" href="#download">Descarga</a>. En Windows, instálala
+            desde la <a class="link" href="https://apps.microsoft.com/detail/9NN2J6NK5R95">Microsoft Store</a>: sin
+            avisos y sin permisos de administrador. Mientras Alfa Git esté en beta la build de macOS todavía no está
+            notarizada por Apple, así que macOS te pide confiar en la app una vez (Ajustes del Sistema › Privacidad y
+            seguridad › <strong>Abrir igualmente</strong>).</p>
         </details>
         <details>
           <summary>¿Cómo lo actualizo?</summary>
-          <p>En Windows y Linux, Alfa Git se actualiza sola: descarga las versiones nuevas en segundo plano y muestra
+          <p>En Windows la actualiza la Microsoft Store. En Linux (y con el instalador <code>.exe</code> de Windows),
+            Alfa Git se actualiza sola: descarga las versiones nuevas en segundo plano y muestra
             <strong>Restart to update</strong> en la barra superior; se instala cuando haces clic. En macOS te avisa
             cuando sale una versión nueva y te trae a esta página para descargarla. Si te quedas varias versiones
             atrás, te pide actualizar para que no te pierdas nada. También puedes buscar en el momento desde
@@ -644,20 +646,26 @@
               <p class="os-panel__meta">Windows 10 y 11 · x64</p>
             </div>
             <div class="os-panel__actions">
-              <a class="btn btn--primary btn--lg" data-link="exe" href="https://github.com/while1is1/alfagit-releases/releases/latest"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3h2v9.17l3.59-3.58L18 10l-6 6-6-6 1.41-1.41L11 12.17V3zM5 18h14v2H5z"/></svg>Descargar para Windows</a>
-              <span class="os-panel__file">Instalador .exe · x64</span>
+              <a class="btn btn--primary btn--lg" href="https://apps.microsoft.com/detail/9NN2J6NK5R95"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7V6a5 5 0 0 1 10 0v1h3a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1h3zm2 0h6V6a3 3 0 0 0-6 0v1z"/></svg>Obtener en Microsoft Store</a>
+              <span class="os-panel__file">Microsoft Store · x64</span>
             </div>
           </div>
           <div class="notice" role="note">
             <span class="tag">Beta</span>
-            <p><strong>Esto es una beta, no una versión de producción.</strong> Alfa Git está en beta pública y su instalador todavía no tiene firma de código, así que Windows SmartScreen puede detenerlo la primera vez. Se instala solo para tu usuario, sin permisos de administrador.</p>
+            <p><strong>Esto es una beta, no una versión de producción.</strong> En Windows, Alfa Git se instala desde la Microsoft Store: firmada por Microsoft, sin aviso de SmartScreen, y la Store la mantiene al día.</p>
           </div>
           <ol class="steps">
-            <li><strong>Ejecuta el instalador</strong> (<code>Alfa Git-…-win-x64-setup.exe</code>) desde tu carpeta de Descargas.</li>
-            <li>Si aparece <strong>“Windows protegió su PC”</strong>, haz clic en <strong>Más información</strong> y luego en <strong>Ejecutar de todas formas</strong>.</li>
-            <li><strong>Elige dónde instalarlo</strong> (la carpeta propuesta sirve) y termina. Alfa Git aparece en el menú Inicio y en el escritorio.</li>
+            <li><strong>Haz clic en Obtener en Microsoft Store.</strong> Se abre la app de la Store en la página de Alfa Git (o la página web, si no tienes la app de la Store).</li>
+            <li><strong>Haz clic en Obtener</strong> (o <strong>Instalar</strong>). No necesitas cuenta ni permisos de administrador.</li>
+            <li><strong>Abre Alfa Git</strong> desde la Store o el menú Inicio.</li>
           </ol>
-          <p class="os-panel__note"><strong>Actualizaciones:</strong> Alfa Git se actualiza sola. Descarga las versiones nuevas en segundo plano y muestra <strong>Restart to update</strong> en la barra superior. Si la descarga automática falla, te trae de vuelta aquí. Necesita <a class="link" href="https://git-scm.com/downloads/win">Git for Windows</a> 2.30+.</p>
+          <p class="os-panel__note"><strong>¿Ya la instalaste con el <code>.exe</code>?</strong> Desinstala esa copia primero desde <strong>Configuración › Aplicaciones</strong>, para no quedar con dos. Tus workspaces y tu configuración se mantienen.</p>
+          <details class="os-panel__alt">
+            <summary>¿No puedes usar la Microsoft Store? Descarga el instalador <code>.exe</code></summary>
+            <p>La misma app como instalador clásico, solo para tu usuario. Todavía no tiene firma de código, así que Windows SmartScreen puede detenerlo la primera vez: haz clic en <strong>Más información</strong> y luego en <strong>Ejecutar de todas formas</strong>. Si tienes <strong>Control inteligente de aplicaciones</strong> activado (Windows 11), Windows lo bloquea sin opción de ejecutarlo: usa la Microsoft Store. Se actualiza sola y muestra <strong>Restart to update</strong> en la barra superior.</p>
+            <p><a class="btn btn--ghost" data-link="exe" href="https://github.com/while1is1/alfagit-releases/releases/latest"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3h2v9.17l3.59-3.58L18 10l-6 6-6-6 1.41-1.41L11 12.17V3zM5 18h14v2H5z"/></svg>Descargar el instalador .exe</a></p>
+          </details>
+          <p class="os-panel__note"><strong>Actualizaciones:</strong> la Microsoft Store actualiza Alfa Git sola, como cualquier otra app de la Store. Necesita <a class="link" href="https://git-scm.com/downloads/win">Git for Windows</a> 2.30+.</p>
         </div>
 
         <div class="os-panel" id="panel-linux" role="tabpanel" aria-labelledby="tab-linux" data-os="linux" tabindex="0">

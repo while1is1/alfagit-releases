@@ -100,7 +100,7 @@
       "name": "How do I install it?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Each system has its own steps in Download. While Alfa Git is in beta its builds are not signed by Apple or Microsoft yet, so macOS asks you to trust the app once (System Settings › Privacy & Security › Open Anyway) and Windows SmartScreen may ask you to click More info › Run anyway."
+        "text": "Each system has its own steps in Download. On Windows, get it from the Microsoft Store: no warnings and no administrator rights. While Alfa Git is in beta the macOS build is not notarized by Apple yet, so macOS asks you to trust the app once (System Settings › Privacy & Security › Open Anyway)."
       }
     },
     {
@@ -108,7 +108,7 @@
       "name": "How do I update it?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "On Windows and Linux, Alfa Git updates itself: it downloads new versions in the background and shows Restart to update in the toolbar; it installs when you click it. On macOS it tells you when a new version is out and brings you to this page to download it. If you fall several versions behind, it asks you to update so you don't miss anything. You can also look now from Help › Check for Updates…."
+        "text": "On Windows, the Microsoft Store updates it. On Linux (and with the Windows .exe installer), Alfa Git updates itself: it downloads new versions in the background and shows Restart to update in the toolbar; it installs when you click it. On macOS it tells you when a new version is out and brings you to this page to download it. If you fall several versions behind, it asks you to update so you don't miss anything. You can also look now from Help › Check for Updates…."
       }
     },
     {
@@ -547,14 +547,16 @@
         </details>
         <details>
           <summary>How do I install it?</summary>
-          <p>Each system has its own steps in <a class="link" href="#download">Download</a>. While Alfa Git is in beta
-            its builds are not signed by Apple or Microsoft yet, so macOS asks you to trust the app once (System
-            Settings › Privacy &amp; Security › <strong>Open Anyway</strong>) and Windows SmartScreen may ask you to
-            click <strong>More info › Run anyway</strong>.</p>
+          <p>Each system has its own steps in <a class="link" href="#download">Download</a>. On Windows, get it from
+            the <a class="link" href="https://apps.microsoft.com/detail/9NN2J6NK5R95">Microsoft Store</a>: no warnings
+            and no administrator rights. While Alfa Git is in beta the macOS build is not notarized by Apple yet, so
+            macOS asks you to trust the app once (System Settings › Privacy &amp; Security › <strong>Open
+            Anyway</strong>).</p>
         </details>
         <details>
           <summary>How do I update it?</summary>
-          <p>On Windows and Linux, Alfa Git updates itself: it downloads new versions in the background and shows
+          <p>On Windows, the Microsoft Store updates it. On Linux (and with the Windows <code>.exe</code> installer),
+            Alfa Git updates itself: it downloads new versions in the background and shows
             <strong>Restart to update</strong> in the toolbar; it installs when you click it. On macOS it tells you
             when a new version is out and brings you to this page to download it. If you fall several versions
             behind, it asks you to update so you don't miss anything. You can also look now from <strong>Help ›
@@ -644,20 +646,26 @@
               <p class="os-panel__meta">Windows 10 and 11 · x64</p>
             </div>
             <div class="os-panel__actions">
-              <a class="btn btn--primary btn--lg" data-link="exe" href="https://github.com/while1is1/alfagit-releases/releases/latest"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3h2v9.17l3.59-3.58L18 10l-6 6-6-6 1.41-1.41L11 12.17V3zM5 18h14v2H5z"/></svg>Download for Windows</a>
-              <span class="os-panel__file">.exe installer · x64</span>
+              <a class="btn btn--primary btn--lg" href="https://apps.microsoft.com/detail/9NN2J6NK5R95"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7V6a5 5 0 0 1 10 0v1h3a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1h3zm2 0h6V6a3 3 0 0 0-6 0v1z"/></svg>Get it from Microsoft Store</a>
+              <span class="os-panel__file">Microsoft Store · x64</span>
             </div>
           </div>
           <div class="notice" role="note">
             <span class="tag">Beta</span>
-            <p><strong>This is a beta, not a production release.</strong> Alfa Git is in public beta and its installer is not code-signed yet, so Windows SmartScreen may stop it the first time. It installs for your user only, with no administrator rights.</p>
+            <p><strong>This is a beta, not a production release.</strong> On Windows, Alfa Git comes from the Microsoft Store: signed by Microsoft, with no SmartScreen warning, and the Store keeps it up to date.</p>
           </div>
           <ol class="steps">
-            <li><strong>Run the installer</strong> (<code>Alfa Git-…-win-x64-setup.exe</code>) from your Downloads folder.</li>
-            <li>If you see <strong>“Windows protected your PC”</strong>, click <strong>More info</strong> and then <strong>Run anyway</strong>.</li>
-            <li><strong>Choose where to install it</strong> (the default is fine) and finish. Alfa Git shows up in the Start menu and on the desktop.</li>
+            <li><strong>Click Get it from Microsoft Store.</strong> The Store app opens on Alfa Git’s page (or the web page, if the Store app is not available).</li>
+            <li><strong>Click Get</strong> (or <strong>Install</strong>). No account or administrator rights needed.</li>
+            <li><strong>Open Alfa Git</strong> from the Store or the Start menu.</li>
           </ol>
-          <p class="os-panel__note"><strong>Updates:</strong> Alfa Git updates itself. It downloads new versions in the background and shows <strong>Restart to update</strong> in the toolbar. If the automatic download fails, it brings you back here. Needs <a class="link" href="https://git-scm.com/downloads/win">Git for Windows</a> 2.30+.</p>
+          <p class="os-panel__note"><strong>Already installed it with the <code>.exe</code>?</strong> Uninstall that copy first from <strong>Settings › Apps</strong>, so you don’t end up with two. Your workspaces and settings are kept.</p>
+          <details class="os-panel__alt">
+            <summary>Can’t use the Microsoft Store? Download the <code>.exe</code> installer</summary>
+            <p>The same app as a classic installer, for your user only. It is not code-signed yet, so Windows SmartScreen may stop it the first time: click <strong>More info</strong> and then <strong>Run anyway</strong>. If <strong>Smart App Control</strong> is on (Windows 11), Windows blocks it with no way to run it: use the Microsoft Store. It updates itself and shows <strong>Restart to update</strong> in the toolbar.</p>
+            <p><a class="btn btn--ghost" data-link="exe" href="https://github.com/while1is1/alfagit-releases/releases/latest"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3h2v9.17l3.59-3.58L18 10l-6 6-6-6 1.41-1.41L11 12.17V3zM5 18h14v2H5z"/></svg>Download the .exe installer</a></p>
+          </details>
+          <p class="os-panel__note"><strong>Updates:</strong> the Microsoft Store updates Alfa Git on its own, like any other Store app. Needs <a class="link" href="https://git-scm.com/downloads/win">Git for Windows</a> 2.30+.</p>
         </div>
 
         <div class="os-panel" id="panel-linux" role="tabpanel" aria-labelledby="tab-linux" data-os="linux" tabindex="0">

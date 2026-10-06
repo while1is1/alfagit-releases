@@ -177,6 +177,7 @@ p { margin: 0; }
 /* Features */
 .features { padding-top: 60px; display: flex; flex-direction: column; gap: 140px; padding-bottom: 60px; }
 .feature { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; }
+.feature--flip { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
 .feature--flip .feature__text { order: 2; }
 .feature__text h3 { margin-bottom: 16px; }
 .feature__text > p { color: var(--text); }
@@ -398,3 +399,53 @@ p { margin: 0; }
   transition: color 0.15s, border-color 0.15s;
 }
 .lang:hover { color: var(--text-strong); border-color: rgba(191, 61, 255, 0.6); }
+
+/* Guides */
+.guide { padding-top: 56px; padding-bottom: 96px; display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 56px; align-items: start; }
+.guide__toc { position: sticky; top: 96px; font-size: 0.9rem; }
+.guide__toc p { font: 600 0.72rem/1 var(--mono); text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-muted); margin-bottom: 14px; }
+.guide__toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; border-left: 1px solid var(--border); }
+.guide__toc a { display: block; padding: 3px 0 3px 14px; margin-left: -1px; border-left: 2px solid transparent; color: var(--text-muted); }
+.guide__toc a:hover { color: var(--text-strong); border-left-color: var(--violet); }
+.guide__body { min-width: 0; max-width: 800px; }
+.guide__body h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); }
+.guide__lead { font-size: 1.15rem; color: var(--text-strong); margin-top: 20px !important; }
+.guide__body > section { margin-top: 72px; }
+.guide__body h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 18px; }
+.guide__body h3 { font-size: 1.15rem; margin: 32px 0 10px; }
+.guide__body p, .guide__body ul { margin: 0 0 14px; }
+.guide__body ul { padding-left: 1.2em; }
+.guide__body li { margin-bottom: 6px; }
+.guide__body strong { color: var(--text-strong); }
+.guide__body .steps { margin: 20px 0; }
+.guide__body .terminal { margin: 20px 0; box-shadow: none; }
+.guide__figure { margin: 24px 0 28px; }
+.guide__figure figcaption { margin-top: 10px; font-size: 0.88rem; color: var(--text-muted); }
+.callout { margin: 20px 0; padding: 14px 18px; border-left: 3px solid var(--violet); border-radius: 0 10px 10px 0; background: rgba(191, 61, 255, 0.08); font-size: 0.95rem; }
+.callout--warn { border-left-color: var(--coral); background: rgba(255, 91, 117, 0.08); }
+.callout strong { color: var(--text-strong); }
+.diagram { margin: 24px 0; overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-2); }
+.diagram svg { display: block; width: 100%; min-width: 560px; height: auto; }
+.diagram .d-box { fill: var(--surface); stroke: var(--border-strong); }
+.diagram .d-git { fill: rgba(191, 61, 255, 0.1); stroke: rgba(191, 61, 255, 0.55); }
+.diagram .d-agent { stroke: rgba(231, 42, 154, 0.6); }
+.diagram .d-title { fill: var(--text-strong); font: 600 14px var(--mono); }
+.diagram .d-text { fill: var(--text); font: 13px var(--font); }
+.diagram .d-muted { fill: var(--text-muted); font: 12px var(--font); }
+.diagram .d-branch { fill: #e08aff; font: 500 12.5px var(--mono); }
+.diagram .d-line { stroke: rgba(224, 138, 255, 0.7); stroke-width: 1.5; fill: none; }
+.table-wrap { margin: 20px 0; overflow-x: auto; }
+.guide table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.guide th, .guide td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+.guide th { color: var(--text-strong); font-weight: 600; }
+.guide td:first-child { white-space: nowrap; }
+.guide__next { margin-top: 72px; padding: 28px; border: 1px solid var(--border-strong); border-radius: var(--radius); background: var(--surface); }
+.guide__next h2 { margin-bottom: 10px; }
+.guide__next .btn { margin-top: 18px; }
+@media (max-width: 960px) {
+  .guide { grid-template-columns: 1fr; gap: 28px; }
+  .guide__toc { position: static; }
+}
+@media (max-width: 640px) {
+  .guide td:first-child { white-space: normal; }
+}

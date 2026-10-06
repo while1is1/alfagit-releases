@@ -32,10 +32,16 @@ It is probably not the right fit for someone who needs a hosted service, code re
 - Rebase: interactive rebase with drag to reorder, squash, fixup, reword and drop; a stopped rebase is shown on the graph, even if it was started in the terminal.
 - Built-in Monaco editor and an integrated terminal per repository; open in your own editor or terminal.
 - Live: changes made from the terminal or another editor show up without refreshing. Command log with every Git command the app ran and its real output.
+- Worktrees: every worktree of a repository is listed under it, including the ones outside the workspace that coding agents (Claude Code, Codex, Cursor) create in `.claude/worktrees/` and similar, marked as agent. A Worktrees tab opens, compares (as a review), creates and removes them; the graph marks branches checked out in another worktree. Guide: https://alfagit.com/guides/worktrees/
+- Workspace operations: Pull All, Push All, a new branch or a branch switch across repositories with a preview, checkpoints that save and restore the branch of every repository, open every repository in an editor or a terminal each.
+- Git profiles: shows who you commit as and where that identity comes from; profiles per repository or folder, with their own SSH key and a warning when the e-mail does not match the remote.
+- Commit messages with Codex (optional, off by default): suggests a message for the staged changes using the Codex CLI and ChatGPT account of the user.
+- History: Main line view (merged branches folded into their merge with a +N count), Fold merged, stable branch colours, ahead/behind on branch chips.
+- Windows: repositories inside WSL run the distribution's own Git.
 
 ## How it works
 
-Alfa Git drives the Git CLI already installed on the machine (no Git library, no bundled Git), using machine-readable output. It never runs commands through a shell, confirms destructive actions natively, and keeps everything local: no account, no cloud sync, no telemetry. The only network traffic is the Git you ask for and the check for new versions on GitHub.
+Alfa Git drives the Git CLI already installed on the machine (no Git library, no bundled Git), using machine-readable output. It never runs commands through a shell, confirms destructive actions natively, and keeps everything local: no account, no cloud sync, no telemetry. The only network traffic is the Git you ask for, the check for new versions on GitHub and, only if the user turns it on, the staged changes sent to their own Codex CLI to suggest a commit message.
 
 ## Pricing
 
@@ -46,4 +52,5 @@ Free during the public beta, with every feature and no account or card. After th
 - [Home and features](https://alfagit.com/)
 - [Download and install steps per system](https://alfagit.com/#download)
 - [FAQ](https://alfagit.com/#faq)
+- [Git worktrees guide](https://alfagit.com/guides/worktrees/) (Spanish: https://alfagit.com/es/guides/worktrees/)
 - [Releases and release notes](https://github.com/while1is1/alfagit-releases/releases)

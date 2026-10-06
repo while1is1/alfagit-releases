@@ -55,16 +55,21 @@
       "name": "Felipe Caceres"
     },
     "featureList": [
-      "Scans a folder and lists every Git repository with its own status",
-      "Workspace Changes: which repositories have uncommitted work, conflicts or commits to pull",
-      "Fetch All across every repository",
-      "Commit graph with branches, tags and stashes",
-      "Staging, word-level diffs, amend and partial stashes",
-      "Branch review like a pull request, with merge conflicts predicted before merging",
-      "Conflict resolution and interactive rebase",
-      "File History and Blame",
-      "Built-in code editor (Monaco) and integrated terminal",
-      "Uses the Git CLI installed on the system; no account, no telemetry"
+      "Escanea una carpeta y lista cada repositorio Git con su propio estado",
+      "Workspace Changes: qué repositorios tienen trabajo sin commitear, conflictos o commits por traer",
+      "Fetch All sobre todos los repositorios",
+      "Grafo de commits con ramas, tags y stashes",
+      "Staging, diffs por palabra, amend y stashes parciales",
+      "Revisión de ramas como un pull request, con los conflictos de merge previstos antes de mergear",
+      "Resolución de conflictos y rebase interactivo",
+      "File History y Blame",
+      "Editor de código integrado (Monaco) y terminal integrada",
+      "Worktrees por repositorio, incluidos los que crean agentes de código como Claude Code o Codex",
+      "Operaciones de workspace: pull, push, crear o cambiar de rama en varios repositorios, y checkpoints",
+      "Perfiles Git por repositorio o carpeta, con su propia llave SSH",
+      "Mensajes de commit opcionales generados por el Codex instalado en tu computador",
+      "Repositorios dentro de WSL en Windows",
+      "Usa el Git CLI instalado en el sistema; sin cuenta y sin telemetría"
     ]
   }
   </script>
@@ -73,7 +78,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=74f2b07045">
+  <link rel="stylesheet" href="../styles.css?v=6a251a4812">
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -124,7 +129,7 @@
       "name": "¿Mi código sale de mi máquina?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. No hay cuenta, ni sincronización en la nube, ni telemetría. El único tráfico de red es el Git que tú pides (fetch, pull y push a tus propios remotos) y la consulta de versiones nuevas en GitHub, que no envía nada sobre ti ni sobre tus repositorios."
+        "text": "No, salvo que lo pidas. No hay cuenta, ni sincronización en la nube, ni telemetría. El tráfico de red es el Git que tú pides (fetch, pull y push a tus propios remotos) y la consulta de versiones nuevas en GitHub, que no envía nada sobre ti ni sobre tus repositorios. Si activas los mensajes de commit con Codex (apagados por defecto, por workspace), pulsar Generate with Codex envía los cambios en staging al Codex instalado en tu computador, que los envía a OpenAI con tu cuenta de ChatGPT."
       }
     },
     {
@@ -133,6 +138,14 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Alfa Git está hecho justo para eso. Abre la carpeta donde viven tus repositorios (un ~/Projects con servicios, librerías y apps) y lista cada repositorio que hay dentro — worktrees, submódulos y repos anidados incluidos— con su propio estado. Workspace Changes muestra cuáles tienen trabajo sin commitear, conflictos o commits por traer, y Fetch All los actualiza todos juntos."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Funciona con los worktrees que crean Claude Code o Codex?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Los agentes de código suelen trabajar cada tarea en su propio git worktree, muchas veces fuera de tu carpeta de proyectos (.claude/worktrees/…). Alfa Git los encuentra a través del repositorio al que pertenecen, los lista bajo él en la sidebar marcados como agent y muestra sus cambios para que los revises antes de mergear. La guía de worktrees explica cómo funciona todo."
       }
     },
     {
@@ -170,6 +183,7 @@
         <a href="#under-the-hood">Por dentro</a>
         <a href="#beta">Beta</a>
         <a href="#faq">Preguntas</a>
+        <a href="guides/worktrees/">Guía de worktrees</a>
       </nav>
       <div class="nav__actions">
         <a class="lang" href="../" hreflang="en" lang="en" title="English">EN</a>
@@ -203,7 +217,7 @@
         <figure class="window window--hero">
           <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i><span>Projects — Alfa Git</span></div>
           <img src="../assets/workspace.png" width="1600" height="851"
-               alt="Alfa Git mostrando un workspace con quince repositorios, cada uno con su estado">
+               alt="Alfa Git mostrando un workspace con doce repositorios, cada uno con su estado">
         </figure>
       </div>
     </section>
@@ -255,7 +269,7 @@
           <ul class="checks">
             <li><strong>Workspace Changes</strong>: una línea por repo, primero lo que necesita atención — conflictos, un merge o rebase detenido, commits por traer</li>
             <li><strong>Fetch All</strong> sobre todos los remotos, con concurrencia limitada</li>
-            <li>Pestañas de workspace para tener varios proyectos a mano</li>
+            <li>Pestañas de workspace para tener varios proyectos a mano — arrástralas, o <kbd>Alt</kbd>+<kbd>←</kbd>/<kbd>→</kbd>, para reordenarlas</li>
           </ul>
         </div>
         <figure class="window">
@@ -265,15 +279,42 @@
         </figure>
       </article>
 
+
       <article class="feature feature--flip">
+        <div class="feature__text">
+          <p class="eyebrow">Operaciones de workspace</p>
+          <h3>Una acción, todos los repositorios</h3>
+          <p>
+            <strong>Pull All</strong> y <strong>Push All</strong>, una rama nueva en varios repositorios o cambiarlos
+            todos a una — con una vista previa de los repositorios que toca cada acción antes de ejecutar nada. A los
+            repositorios con cambios locales en el camino se les pregunta una sola vez: omitirlos, o hacer stash y
+            devolver los cambios al terminar.
+          </p>
+          <ul class="checks">
+            <li><strong>Checkpoints</strong>: guarda en qué rama está cada repositorio y vuelve a ponerlos a todos en ella de una vez — nunca se mueve ni se resetea una rama</li>
+            <li>Un panel de resultados por repositorio, con <strong>Try again</strong> para los que fallaron</li>
+            <li>Abre todos los repositorios en VS Code, Cursor, Zed o Sublime Text, o una terminal para cada uno</li>
+          </ul>
+        </div>
+        <figure class="window">
+          <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="../assets/workspace-ops.png" width="1600" height="851" loading="lazy"
+               alt="Rama nueva en varios repositorios, con la lista de repositorios a los que se aplica">
+        </figure>
+      </article>
+
+      <article class="feature">
         <div class="feature__text">
           <p class="eyebrow">Historial</p>
           <h3>Un grafo que muestra la estructura</h3>
           <p>
-            Carriles y colores por rama, el autor en cada nodo, chips de ramas y tags. Los cambios sin commitear
-            van arriba, y cada stash cuelga del commit desde el que se hizo.
+            Cada rama conserva su color — <code>main</code> siempre es azul — y su chip va en la fila del commit, con lo
+            que hay para <strong>subir (↑) y traer (↓)</strong>. Los commits se agrupan en Hoy, Ayer y días anteriores;
+            los cambios sin commitear van arriba, y cada stash cuelga de su commit.
           </p>
           <ul class="checks">
+            <li><strong>Main line</strong>: solo la línea principal, cada rama mergeada plegada en su merge con una pastilla <strong>+N</strong></li>
+            <li><strong>Fold merged</strong>: los commits que trajo un merge pasan a ser una fila que puedes abrir</li>
             <li>Clic derecho para cherry-pick, revert, merge, rebase, reset o tag</li>
             <li>Detalle del commit con sus archivos y su diff lado a lado</li>
             <li>Rebase interactivo: arrastra para reordenar, squash, fixup, reword, drop</li>
@@ -284,7 +325,31 @@
         <figure class="window">
           <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
           <img src="../assets/history.png" width="1600" height="851" loading="lazy"
-               alt="Grafo de commits con ramas, tags, stashes y el working tree">
+               alt="Grafo de commits con chips de rama de colores, un stash, cambios sin commitear y commits agrupados por día">
+        </figure>
+      </article>
+
+
+      <article class="feature feature--flip">
+        <div class="feature__text">
+          <p class="eyebrow">Worktrees</p>
+          <h3>Todos los worktrees, también los de tus agentes</h3>
+          <p>
+            Cada worktree de un repositorio aparece bajo él en la sidebar — también los que están fuera del workspace y
+            que <strong>Claude Code, Codex o Cursor</strong> crean para cada tarea, marcados como <em>agent</em>. La
+            pestaña <strong>Worktrees</strong> muestra su rama, sus cambios y ↑/↓ contra el worktree principal, y te
+            deja abrirlos, compararlos, crearlos y borrarlos.
+          </p>
+          <ul class="checks">
+            <li>El Historial marca las ramas que están en checkout en otro worktree</li>
+            <li>Un worktree bloqueado o con cambios nunca se borra por accidente; la rama siempre se conserva</li>
+            <li>¿Nuevo con los worktrees? <a class="link" href="guides/worktrees/">Lee la guía</a></li>
+          </ul>
+        </div>
+        <figure class="window">
+          <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="../assets/worktrees.png" width="1600" height="851" loading="lazy"
+               alt="Pestaña Worktrees con un worktree de hotfix y un worktree bloqueado creado por un agente de código">
         </figure>
       </article>
 
@@ -302,16 +367,40 @@
             <li>Amplía el contexto alrededor de un cambio, o lee el archivo entero</li>
             <li>Discard y clean, confirmados de forma nativa</li>
             <li>Stashes parciales, amend, modos de pull</li>
+            <li><strong>Generate with Codex</strong> sugiere un mensaje para los cambios en staging — apagado salvo que lo actives</li>
           </ul>
         </div>
         <figure class="window">
           <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
           <img src="../assets/changes.png" width="1600" height="851" loading="lazy"
-               alt="Área de staging con el diff de un archivo">
+               alt="Cambios en staging con un diff por palabras, el mensaje del commit y con quién commiteas">
         </figure>
       </article>
 
+
       <article class="feature feature--flip">
+        <div class="feature__text">
+          <p class="eyebrow">Perfiles Git</p>
+          <h3>Commitea siempre como la persona correcta</h3>
+          <p>
+            El panel de commit muestra con qué identidad vas a commitear y de dónde sale. Guarda tus identidades
+            personal, del trabajo y de clientes como perfiles, y asigna uno a un repositorio o a una carpeta entera del
+            workspace. Git sigue siendo la fuente de verdad: los perfiles se escriben como configuración de Git.
+          </p>
+          <ul class="checks">
+            <li>Un perfil puede tener su propia <strong>llave SSH</strong>, para una segunda cuenta en el mismo host</li>
+            <li>Commitear a un remoto del trabajo con tu e-mail personal te avisa, con un arreglo de un clic</li>
+            <li>Importa las identidades que ya tienes en tu <code>~/.gitconfig</code></li>
+          </ul>
+        </div>
+        <figure class="window">
+          <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="../assets/profiles.png" width="1600" height="851" loading="lazy"
+               alt="Diálogo Git Profiles creando un perfil de trabajo con su e-mail y sus remotos">
+        </figure>
+      </article>
+
+      <article class="feature">
         <div class="feature__text">
           <p class="eyebrow">Revisión</p>
           <h3>Revisa una rama como un pull request</h3>
@@ -329,11 +418,11 @@
         <figure class="window">
           <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
           <img src="../assets/review.png" width="1600" height="851" loading="lazy"
-               alt="Revisión de feature/login contra main, con un archivo que entraría en conflicto">
+               alt="Revisión de feature/refunds contra origin/main: sus commits, archivos cambiados y diff">
         </figure>
       </article>
 
-      <article class="feature">
+      <article class="feature feature--flip">
         <div class="feature__text">
           <p class="eyebrow">Conflictos</p>
           <h3>Decide mirando, no leyendo marcadores</h3>
@@ -354,13 +443,14 @@
         </figure>
       </article>
 
-      <article class="feature feature--flip">
+      <article class="feature">
         <div class="feature__text">
           <p class="eyebrow">Rebase</p>
           <h3>Un rebase que puedes seguir</h3>
           <p>
-            Mientras un rebase está detenido, la cabecera dice qué se está rebaseando sobre qué y cuánto lleva — y
-            <strong>el grafo marca el plan</strong>: lo que ya se aplicó, dónde se detuvo y lo que falta.
+            Ordena una rama antes de mergearla: arrastra para reordenar y elige pick, reword, squash, fixup o drop en
+            cada commit. Mientras un rebase está detenido, la cabecera dice cuánto lleva y <strong>el grafo marca el
+            plan</strong>: lo que ya se aplicó, dónde se detuvo y lo que falta.
           </p>
           <ul class="checks">
             <li>Se lee de los archivos de Git, así que funciona con un rebase que empezaste en la terminal</li>
@@ -370,11 +460,11 @@
         <figure class="window">
           <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
           <img src="../assets/rebase.png" width="1600" height="851" loading="lazy"
-               alt="Un rebase en curso con su plan marcado en el grafo">
+               alt="Rebase interactivo de la rama de un agente con squash, fixup y reword">
         </figure>
       </article>
 
-      <article class="feature">
+      <article class="feature feature--flip">
         <div class="feature__text">
           <p class="eyebrow">Editor</p>
           <h3>Un editor para el arreglo rápido</h3>
@@ -394,7 +484,7 @@
         </figure>
       </article>
 
-      <article class="feature feature--flip">
+      <article class="feature">
         <div class="feature__text">
           <p class="eyebrow">Terminal</p>
           <h3>Una terminal en cada repositorio</h3>
@@ -411,7 +501,7 @@
         <figure class="window">
           <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
           <img src="../assets/terminal.png" width="1600" height="851" loading="lazy"
-               alt="La terminal integrada abierta bajo el grafo de commits de un repositorio">
+               alt="La terminal integrada bajo el grafo de commits, listando los worktrees del repositorio">
         </figure>
       </article>
     </section>
@@ -465,6 +555,21 @@
           <span class="card__icon" aria-hidden="true">⌨</span>
           <h4>Primero el teclado</h4>
           <p>Atajos para la sidebar, la terminal, la búsqueda y la revisión, listados en los menús y tooltips.</p>
+        </div>
+        <div class="card">
+          <span class="card__icon" aria-hidden="true">⧉</span>
+          <h4>Repositorios en WSL</h4>
+          <p>En Windows, abre <code>\\wsl.localhost\…</code>: cada comando usa el Git, las llaves y la configuración de la distribución.</p>
+        </div>
+        <div class="card">
+          <span class="card__icon" aria-hidden="true">↗</span>
+          <h4>Abrir en el navegador</h4>
+          <p>Ve a la página del repositorio en GitHub, GitLab o Harness, a partir de su <code>origin</code> — con alias SSH incluidos.</p>
+        </div>
+        <div class="card">
+          <span class="card__icon" aria-hidden="true">▤</span>
+          <h4>Modo Work</h4>
+          <p>Cada repositorio en el que trabajas conserva su selección, sus diffs abiertos y su mensaje de commit mientras cambias.</p>
         </div>
       </div>
     </section>
@@ -524,7 +629,8 @@
           <li>Resolución de conflictos y rebase interactivo</li>
           <li>File History, Blame y restaurar un archivo desde cualquier commit</li>
           <li>Editor y terminal integrados, y búsqueda en el repositorio</li>
-          <li>Fetch All y auto-fetch</li>
+          <li>Fetch All, auto-fetch y operaciones de workspace</li>
+          <li>Worktrees, perfiles Git y checkpoints</li>
           <li>Todas las actualizaciones durante la beta</li>
         </ul>
       </div>
@@ -570,9 +676,11 @@
         </details>
         <details>
           <summary>¿Mi código sale de mi máquina?</summary>
-          <p>No. No hay cuenta, ni sincronización en la nube, ni telemetría. El único tráfico de red es el Git que tú
-            pides (fetch, pull y push a tus propios remotos) y la consulta de versiones nuevas en GitHub, que no envía
-            nada sobre ti ni sobre tus repositorios.</p>
+          <p>No, salvo que lo pidas. No hay cuenta, ni sincronización en la nube, ni telemetría. El tráfico de red es
+            el Git que tú pides (fetch, pull y push a tus propios remotos) y la consulta de versiones nuevas en GitHub,
+            que no envía nada sobre ti ni sobre tus repositorios. Si activas los <strong>mensajes de commit con
+            Codex</strong> (apagados por defecto, por workspace), pulsar <strong>Generate with Codex</strong> envía los
+            cambios en staging al Codex instalado en tu computador, que los envía a OpenAI con tu cuenta de ChatGPT.</p>
         </details>
         <details>
           <summary>¿Qué cliente Git sirve para manejar muchos repositorios a la vez?</summary>
@@ -581,6 +689,14 @@
             worktrees, submódulos y repos anidados incluidos— con su propio estado. <strong>Workspace Changes</strong>
             muestra cuáles tienen trabajo sin commitear, conflictos o commits por traer, y <strong>Fetch All</strong>
             los actualiza todos juntos.</p>
+        </details>
+        <details>
+          <summary>¿Funciona con los worktrees que crean Claude Code o Codex?</summary>
+          <p>Sí. Los agentes de código suelen trabajar cada tarea en su propio <code>git worktree</code>, muchas veces
+            fuera de tu carpeta de proyectos (<code>.claude/worktrees/…</code>). Alfa Git los encuentra a través del
+            repositorio al que pertenecen, los lista bajo él en la sidebar marcados como <em>agent</em> y muestra sus
+            cambios para que los revises antes de mergear. La <a class="link" href="guides/worktrees/">guía de
+            worktrees</a> explica cómo funciona todo.</p>
         </details>
         <details>
           <summary>¿Funciona con GitHub, GitLab y Bitbucket?</summary>
@@ -702,6 +818,7 @@
         <a href="#features">Funciones</a>
         <a href="#beta">Beta</a>
         <a href="#faq">Preguntas</a>
+        <a href="guides/worktrees/">Guía de worktrees</a>
         <a href="privacy/">Privacidad</a>
         <a href="../" hreflang="en" lang="en">English</a>
       </nav>

@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Git worktrees, explained — Alfa Git guide</title>
+  <meta name="description" content="What a Git worktree is, when to use one, the git worktree commands, and how to create, compare and remove worktrees — including the ones Claude Code or Codex create — in Alfa Git.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#110f26">
+  <link rel="canonical" href="https://alfagit.com/guides/worktrees/">
+  <link rel="alternate" hreflang="en" href="https://alfagit.com/guides/worktrees/">
+  <link rel="alternate" hreflang="es" href="https://alfagit.com/es/guides/worktrees/">
+  <link rel="alternate" hreflang="x-default" href="https://alfagit.com/guides/worktrees/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Alfa Git">
+  <meta property="og:url" content="https://alfagit.com/guides/worktrees/">
+  <meta property="og:title" content="Git worktrees, explained">
+  <meta property="og:description" content="Several branches checked out at once, one folder each. How worktrees work in Git and in Alfa Git.">
+  <meta property="og:image" content="https://alfagit.com/assets/worktrees.png">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="851">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../../assets/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css?v=6a251a4812">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav nav--scrolled" id="top">
+    <div class="container nav__inner">
+      <a class="brand" href="../../" aria-label="Alfa Git, home">
+        <img src="../../assets/icon.svg" alt="" width="32" height="32">
+        <span>Alfa Git</span>
+        <span class="tag">Beta</span>
+      </a>
+      <nav class="nav__links" aria-label="Main">
+        <a href="../../#features">Features</a>
+        <a href="../../#faq">FAQ</a>
+        <a href="./" aria-current="page">Worktrees guide</a>
+      </nav>
+      <div class="nav__actions">
+        <a class="lang" href="../../es/guides/worktrees/" hreflang="es" lang="es" title="Español">ES</a>
+        <a class="btn btn--primary btn--sm" href="../../#download">Download</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="container guide">
+    <aside class="guide__toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#what">What a worktree is</a></li>
+        <li><a href="#why">When to use one</a></li>
+        <li><a href="#terminal">In the terminal</a></li>
+        <li><a href="#alfa-git">In Alfa Git</a></li>
+        <li><a href="#agents">Coding agents</a></li>
+        <li><a href="#problems">Common problems</a></li>
+        <li><a href="#cheatsheet">Cheat sheet</a></li>
+      </ol>
+    </aside>
+
+    <article class="guide__body">
+      <p class="eyebrow">Guide</p>
+      <h1>Git worktrees, explained</h1>
+      <p class="guide__lead">Work on two branches at the same time without stashing, cloning twice or losing your
+        place. This guide covers what a worktree is, the <code>git worktree</code> commands, and how to use worktrees
+        in Alfa Git — including the ones coding agents create for you.</p>
+
+      <section id="what" aria-labelledby="what-title">
+        <h2 id="what-title">What a worktree is</h2>
+        <p>A Git repository has one <strong>working tree</strong>: the folder with your files, checked out on one
+          branch. <code>git worktree</code> adds more of them. Each <strong>linked worktree</strong> is another folder,
+          on its own branch, that shares the same repository: the same commits, branches, tags, remotes and config.</p>
+        <p>Nothing is copied or downloaded. A commit made in one worktree is immediately visible from the others,
+          because there is only one <code>.git</code>. What each worktree has of its own is its files, its staging area
+          (index) and its <code>HEAD</code> — the branch it is on.</p>
+
+        <figure class="diagram" role="img" aria-label="Diagram: the checkout-service folder holds the .git repository and is on main. Two linked worktrees, checkout-service-hotfix on hotfix/rounding and .claude/worktrees/refund-emails on claude/refund-emails, point back to it.">
+          <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect class="d-box" x="20" y="30" width="300" height="240" rx="12"/>
+            <text class="d-title" x="40" y="62">checkout-service/</text>
+            <text class="d-muted" x="40" y="82">main worktree</text>
+            <text class="d-branch" x="40" y="106">⎇ main</text>
+            <rect class="d-git" x="40" y="126" width="260" height="124" rx="10"/>
+            <text class="d-title" x="58" y="154">.git/</text>
+            <text class="d-text" x="58" y="178">commits · branches · tags · config</text>
+            <text class="d-muted" x="58" y="204">worktrees/checkout-service-hotfix</text>
+            <text class="d-muted" x="58" y="226">worktrees/refund-emails</text>
+
+            <rect class="d-box" x="440" y="30" width="300" height="104" rx="12"/>
+            <text class="d-title" x="460" y="62">checkout-service-hotfix/</text>
+            <text class="d-branch" x="460" y="86">⎇ hotfix/rounding</text>
+            <text class="d-muted" x="460" y="112">.git is a file → .git/worktrees/…</text>
+
+            <rect class="d-box d-agent" x="440" y="166" width="300" height="104" rx="12"/>
+            <text class="d-title" x="460" y="198">.claude/worktrees/refund-emails/</text>
+            <text class="d-branch" x="460" y="222">⎇ claude/refund-emails</text>
+            <text class="d-muted" x="460" y="248">made by a coding agent · locked</text>
+
+            <path class="d-line" d="M440 82 C 380 82, 360 190, 300 190"/>
+            <path class="d-line" d="M440 218 C 380 218, 360 200, 300 200"/>
+            <circle cx="300" cy="190" r="3.5" fill="#e08aff"/>
+            <circle cx="300" cy="200" r="3.5" fill="#e08aff"/>
+          </svg>
+        </figure>
+
+        <p>The folder that holds the <code>.git</code> directory is the <strong>main worktree</strong>. In a linked
+          worktree, <code>.git</code> is a small file that points to that worktree's own entry inside the main one's <code>.git/worktrees/</code>. That is why you should never delete a
+          linked worktree's folder by hand: the repository would keep a record of it (see
+          <a class="link" href="#problems">Common problems</a>).</p>
+      </section>
+
+      <section id="why" aria-labelledby="why-title">
+        <h2 id="why-title">When to use one</h2>
+        <ul>
+          <li><strong>An urgent fix in the middle of a feature.</strong> Open a worktree on <code>main</code>, fix,
+            commit, push. Your feature branch stays exactly as you left it — no stash, no half-finished commit.</li>
+          <li><strong>Reviewing a pull request.</strong> Check the branch out in its own folder, run it and its tests,
+            while your editor keeps your own work open.</li>
+          <li><strong>Long builds or test runs.</strong> Let them run in one worktree while you keep coding in
+            another.</li>
+          <li><strong>Coding agents in parallel.</strong> Claude Code, Codex and Cursor give each task its own worktree,
+            so several agents (and you) can work on the same repository at once without touching each other's
+            files.</li>
+          <li><strong>Comparing behaviour.</strong> Run the old and the new version side by side.</li>
+        </ul>
+        <p class="callout">One rule shapes everything else: <strong>a branch can be checked out in only one worktree
+          at a time.</strong> Git refuses to check out a branch that another worktree is on, so two folders never fight
+          over the same branch.</p>
+      </section>
+
+      <section id="terminal" aria-labelledby="terminal-title">
+        <h2 id="terminal-title">In the terminal</h2>
+        <p>Everything below is plain Git (2.17 or newer for all of it; Alfa Git needs 2.30 anyway). Run it from inside the repository.</p>
+
+        <h3>Create a worktree</h3>
+        <div class="terminal" role="img" aria-label="Commands to create worktrees">
+          <div class="terminal__bar"><i></i><i></i><i></i><span>checkout-service</span></div>
+          <pre><span class="t-dim"># a new branch, starting from where you are</span>
+git worktree add ../checkout-service-gift-cards -b feature/gift-cards
+
+<span class="t-dim"># a new branch from somewhere else (a tag, another branch, a commit)</span>
+git worktree add ../checkout-service-hotfix -b hotfix/rounding v1.1.0
+
+<span class="t-dim"># an existing branch</span>
+git worktree add ../checkout-service-review feature/refunds</pre>
+        </div>
+        <p>The first argument is the new folder, usually next to the repository. Then <code>cd</code> into it and work
+          as usual: <code>git status</code>, <code>git commit</code> and <code>git push</code> all act on that
+          worktree's branch.</p>
+
+        <h3>See them</h3>
+        <div class="terminal" role="img" aria-label="Output of git worktree list">
+          <div class="terminal__bar"><i></i><i></i><i></i><span>checkout-service</span></div>
+          <pre>git worktree list
+<span class="t-dim">/home/you/Projects/checkout-service                               d58320a [main]
+/home/you/Projects/checkout-service-hotfix                        9ac4877 [hotfix/rounding]
+/home/you/Projects/checkout-service/.claude/worktrees/refund-emails 79775bc [claude/refund-emails] locked</span></pre>
+        </div>
+
+        <h3>Remove, lock and clean up</h3>
+        <div class="terminal" role="img" aria-label="Commands to remove, lock and prune worktrees">
+          <div class="terminal__bar"><i></i><i></i><i></i><span>checkout-service</span></div>
+          <pre><span class="t-dim"># delete the folder and forget the worktree (the branch is kept)</span>
+git worktree remove ../checkout-service-hotfix
+
+<span class="t-dim"># it refuses if there are uncommitted changes; --force discards them</span>
+git worktree remove --force ../checkout-service-hotfix
+
+<span class="t-dim"># protect a worktree from remove and prune (agents do this)</span>
+git worktree lock --reason "agent session" ../checkout-service-review
+git worktree unlock ../checkout-service-review
+
+<span class="t-dim"># forget worktrees whose folder was deleted by hand</span>
+git worktree prune</pre>
+        </div>
+        <p class="callout callout--warn"><strong>Removing a worktree never deletes its branch</strong>, and its commits
+          stay in the repository. Delete the branch separately when you are done with it.</p>
+      </section>
+
+      <section id="alfa-git" aria-labelledby="alfa-git-title">
+        <h2 id="alfa-git-title">In Alfa Git</h2>
+        <p>Alfa Git runs those same commands for you, and shows every worktree as a repository of its own — with its
+          status, Changes, History and Review — nested under the repository it belongs to.</p>
+
+        <h3>Find them</h3>
+        <ol class="steps">
+          <li><strong>Open your projects folder</strong> as a workspace. Worktrees appear <strong>under their
+            repository</strong> in the sidebar, even the ones outside the folder, as long as the repository itself is inside it. Click the count next to the
+            repository to fold or unfold them.</li>
+          <li><strong>Select the main repository and open the Worktrees tab.</strong> Each worktree is a card with its
+            branch, folder, uncommitted changes, how far it is <strong>ahead (↑) and behind (↓)</strong> the main
+            worktree, and its last commit. <em>you are here</em> marks the one you have open; badges say when one is
+            <em>main</em>, <em>locked</em>, made by an <em>agent</em>, or its <em>folder is missing</em>.</li>
+          <li><strong>Open the arrow on a card</strong> to see its changed files; click one to see its diff.</li>
+        </ol>
+        <figure class="window guide__figure">
+          <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="../../assets/worktrees.png" width="1600" height="851" loading="lazy"
+               alt="Worktrees tab of checkout-service: the main worktree, a hotfix worktree and a locked agent worktree with one changed file">
+          <figcaption>The Worktrees tab: a hotfix worktree next to the repository, and a coding agent's worktree inside it.</figcaption>
+        </figure>
+
+        <h3>Create one</h3>
+        <ol class="steps">
+          <li>Click <strong>New Worktree</strong> in the Worktrees tab, or right-click a repository in the sidebar and
+            choose <strong>New Worktree…</strong>.</li>
+          <li>Choose <strong>New branch</strong> (and where it <strong>starts from</strong>) or <strong>Existing
+            branch</strong>. Branches already checked out in another worktree are listed but can't be picked.</li>
+          <li>Check the <strong>Folder</strong> name: it is created next to the main worktree, and the full path is
+            shown under it.</li>
+          <li>Leave <strong>Open it when it is ready</strong> on and click <strong>Create Worktree</strong>.</li>
+        </ol>
+        <figure class="window guide__figure">
+          <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="../../assets/worktree-new.png" width="1600" height="851" loading="lazy"
+               alt="New Worktree dialog with a new branch feature/gift-cards and the folder checkout-service-feature-gift-cards">
+          <figcaption>New Worktree: the branch, where it starts from, and the folder it will live in.</figcaption>
+        </figure>
+
+        <h3>Work across worktrees</h3>
+        <ul>
+          <li><strong>Open</strong> switches Alfa Git to that worktree; <strong>Open in Editor</strong> and
+            <strong>Open in Terminal</strong> (in the card's menu) open it in your own tools.</li>
+          <li><strong>Compare</strong> opens <strong>Review</strong> with the worktree's branch against the main one: its
+            commits, every file it changes, and whether merging it would conflict.</li>
+          <li>In the <strong>History</strong>, a branch that another worktree has checked out carries a worktree icon
+            (a spark for an agent's). Git would not let you check it out here, so double-clicking it — or
+            <strong>Open worktree</strong> in its right-click menu — takes you to that worktree.</li>
+        </ul>
+        <figure class="window guide__figure">
+          <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="../../assets/worktree-graph.png" width="1600" height="851" loading="lazy"
+               alt="Right-click menu on the claude/refund-emails branch in the History, with Open worktree refund-emails">
+          <figcaption>A branch checked out in another worktree: <em>Open worktree</em> replaces <em>Checkout</em>.</figcaption>
+        </figure>
+
+        <h3>Remove one</h3>
+        <p>Choose <strong>Remove Worktree…</strong> in the card's menu, or right-click the worktree in the sidebar. The
+          system asks you to confirm. If the worktree has uncommitted changes, or is <strong>locked</strong> (agents lock
+          theirs), the dialog says so — naming the lock's reason — and only <strong>Remove Anyway</strong> removes it.
+          The branch is always kept.</p>
+        <p>If a worktree's folder was deleted outside the app, its card says <em>folder missing</em> and
+          <strong>Clean up</strong> runs <code>git worktree prune</code> to forget it.</p>
+      </section>
+
+      <section id="agents" aria-labelledby="agents-title">
+        <h2 id="agents-title">Worktrees made by coding agents</h2>
+        <p>Claude Code, Codex and Cursor can work each task in its own worktree, usually under
+          <code>.claude/worktrees/</code>, <code>.codex/worktrees/</code> or <code>.cursor/worktrees/</code> — often
+          outside the folder you opened. Alfa Git finds them through the repository they belong to, so you don't have to
+          go looking:</p>
+        <ul>
+          <li>They are listed under their repository with an <strong>agent</strong> badge, and they show up in
+            <strong>Workspace Changes</strong> like any other repository.</li>
+          <li>Changes the agent makes appear on their own, as files are written and commits are made.</li>
+          <li>Before merging an agent's work, <strong>Compare</strong> it to review every file, then tidy its commits
+            with an <strong>interactive rebase</strong> (squash, fixup, reword) if you like.</li>
+          <li>When the task is done, remove the worktree from the app: it asks first, because agents lock their
+            worktrees while they work.</li>
+        </ul>
+        <figure class="window guide__figure">
+          <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="../../assets/terminal.png" width="1600" height="851" loading="lazy"
+               alt="The built-in terminal running git worktree list and the log of the agent's branch">
+          <figcaption>The same worktrees from the built-in terminal: Alfa Git shows exactly what Git reports.</figcaption>
+        </figure>
+      </section>
+
+      <section id="problems" aria-labelledby="problems-title">
+        <h2 id="problems-title">Common problems</h2>
+        <h3>“is already checked out at” / “is already used by worktree at”</h3>
+        <p>That branch is checked out in another worktree. Open that worktree instead (in Alfa Git, double-click the
+          branch in the History), or create a new branch from it.</p>
+        <h3>I deleted a worktree's folder by hand</h3>
+        <p>Git still lists it, marked <em>prunable</em>. Run <code>git worktree prune</code>, or click
+          <strong>Clean up</strong> in the Worktrees tab. The branch and its commits are still there.</p>
+        <h3>“cannot remove a locked working tree”</h3>
+        <p>Someone — usually an agent — locked it. Check with <code>git worktree list</code> that nothing is still using
+          it, then <code>git worktree unlock</code> it, or use <strong>Remove Anyway</strong> in Alfa Git.</p>
+        <h3>My stash shows up in every worktree</h3>
+        <p>That is expected: the stash belongs to the repository, not to a worktree. Alfa Git shows each stash on the
+          commit it was made from.</p>
+      </section>
+
+      <section id="cheatsheet" aria-labelledby="cheatsheet-title">
+        <h2 id="cheatsheet-title">Cheat sheet</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th scope="col">You want to</th><th scope="col">Git</th><th scope="col">Alfa Git</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Create</td><td><code>git worktree add &lt;folder&gt; -b &lt;branch&gt;</code></td><td>Worktrees › New Worktree</td></tr>
+              <tr><td>List</td><td><code>git worktree list</code></td><td>Sidebar, Worktrees tab</td></tr>
+              <tr><td>Review</td><td><code>git diff main...&lt;branch&gt;</code></td><td>Compare</td></tr>
+              <tr><td>Open</td><td><code>cd &lt;folder&gt;</code></td><td>Open, or double-click its branch</td></tr>
+              <tr><td>Remove</td><td><code>git worktree remove &lt;folder&gt;</code></td><td>Remove Worktree…</td></tr>
+              <tr><td>Clean up</td><td><code>git worktree prune</code></td><td>Clean up</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <aside class="guide__next">
+        <h2>Try it on your own repositories</h2>
+        <p>Alfa Git is free during the beta, for macOS, Windows and Linux. Open your projects folder and every
+          worktree — yours and your agents' — is already there.</p>
+        <a class="btn btn--primary btn--lg" href="../../#download">Download the beta</a>
+      </aside>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a class="brand brand--sm" href="../../">
+        <img src="../../assets/icon.svg" alt="" width="22" height="22">
+        <span>Alfa Git</span>
+      </a>
+      <nav aria-label="Footer">
+        <a href="../../#features">Features</a>
+        <a href="../../#faq">FAQ</a>
+        <a href="./">Worktrees guide</a>
+        <a href="../../privacy/">Privacy</a>
+        <a href="../../es/guides/worktrees/" hreflang="es" lang="es">Español</a>
+      </nav>
+      <p>© 2026 Felipe Caceres</p>
+    </div>
+  </footer>
+</body>
+</html>

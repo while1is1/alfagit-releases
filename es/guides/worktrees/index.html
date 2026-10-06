@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Git worktrees, explicados — guía de Alfa Git</title>
+  <meta name="description" content="Qué es un worktree de Git, cuándo usarlo, los comandos de git worktree, y cómo crear, comparar y borrar worktrees — incluidos los que crean Claude Code o Codex — en Alfa Git.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#110f26">
+  <link rel="canonical" href="https://alfagit.com/es/guides/worktrees/">
+  <link rel="alternate" hreflang="en" href="https://alfagit.com/guides/worktrees/">
+  <link rel="alternate" hreflang="es" href="https://alfagit.com/es/guides/worktrees/">
+  <link rel="alternate" hreflang="x-default" href="https://alfagit.com/guides/worktrees/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Alfa Git">
+  <meta property="og:url" content="https://alfagit.com/es/guides/worktrees/">
+  <meta property="og:title" content="Git worktrees, explicados">
+  <meta property="og:description" content="Varias ramas en checkout a la vez, una carpeta cada una. Cómo funcionan los worktrees en Git y en Alfa Git.">
+  <meta property="og:image" content="https://alfagit.com/assets/worktrees.png">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="851">
+  <meta property="og:locale" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../../../assets/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles.css?v=6a251a4812">
+</head>
+<body>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="nav nav--scrolled" id="top">
+    <div class="container nav__inner">
+      <a class="brand" href="../../" aria-label="Alfa Git, inicio">
+        <img src="../../../assets/icon.svg" alt="" width="32" height="32">
+        <span>Alfa Git</span>
+        <span class="tag">Beta</span>
+      </a>
+      <nav class="nav__links" aria-label="Principal">
+        <a href="../../#features">Funciones</a>
+        <a href="../../#faq">Preguntas</a>
+        <a href="./" aria-current="page">Guía de worktrees</a>
+      </nav>
+      <div class="nav__actions">
+        <a class="lang" href="../../../guides/worktrees/" hreflang="en" lang="en" title="English">EN</a>
+        <a class="btn btn--primary btn--sm" href="../../#download">Descargar</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="container guide">
+    <aside class="guide__toc" aria-label="En esta página">
+      <p>En esta página</p>
+      <ol>
+        <li><a href="#what">Qué es un worktree</a></li>
+        <li><a href="#why">Cuándo usarlo</a></li>
+        <li><a href="#terminal">En la terminal</a></li>
+        <li><a href="#alfa-git">En Alfa Git</a></li>
+        <li><a href="#agents">Agentes de código</a></li>
+        <li><a href="#problems">Problemas comunes</a></li>
+        <li><a href="#cheatsheet">Resumen</a></li>
+      </ol>
+    </aside>
+
+    <article class="guide__body">
+      <p class="eyebrow">Guía</p>
+      <h1>Git worktrees, explicados</h1>
+      <p class="guide__lead">Trabaja en dos ramas a la vez sin hacer stash, sin clonar dos veces y sin perder el hilo.
+        Esta guía explica qué es un worktree, los comandos de <code>git worktree</code> y cómo usar worktrees en Alfa Git
+        — incluidos los que crean los agentes de código por ti.</p>
+
+      <section id="what" aria-labelledby="what-title">
+        <h2 id="what-title">Qué es un worktree</h2>
+        <p>Un repositorio Git tiene un <strong>working tree</strong>: la carpeta con tus archivos, en checkout en una
+          rama. <code>git worktree</code> agrega más. Cada <strong>worktree enlazado</strong> es otra carpeta, en su
+          propia rama, que comparte el mismo repositorio: los mismos commits, ramas, tags, remotos y configuración.</p>
+        <p>No se copia ni se descarga nada. Un commit hecho en un worktree se ve al instante desde los demás, porque hay
+          un solo <code>.git</code>. Lo que cada worktree tiene propio son sus archivos, su área de staging (índice) y su
+          <code>HEAD</code> — la rama en la que está.</p>
+
+        <figure class="diagram" role="img" aria-label="Diagrama: la carpeta checkout-service guarda el repositorio .git y está en main. Dos worktrees enlazados, checkout-service-hotfix en hotfix/rounding y .claude/worktrees/refund-emails en claude/refund-emails, apuntan a él.">
+          <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect class="d-box" x="20" y="30" width="300" height="240" rx="12"/>
+            <text class="d-title" x="40" y="62">checkout-service/</text>
+            <text class="d-muted" x="40" y="82">worktree principal</text>
+            <text class="d-branch" x="40" y="106">⎇ main</text>
+            <rect class="d-git" x="40" y="126" width="260" height="124" rx="10"/>
+            <text class="d-title" x="58" y="154">.git/</text>
+            <text class="d-text" x="58" y="178">commits · ramas · tags · config</text>
+            <text class="d-muted" x="58" y="204">worktrees/checkout-service-hotfix</text>
+            <text class="d-muted" x="58" y="226">worktrees/refund-emails</text>
+
+            <rect class="d-box" x="440" y="30" width="300" height="104" rx="12"/>
+            <text class="d-title" x="460" y="62">checkout-service-hotfix/</text>
+            <text class="d-branch" x="460" y="86">⎇ hotfix/rounding</text>
+            <text class="d-muted" x="460" y="112">.git es un archivo → .git/worktrees/…</text>
+
+            <rect class="d-box d-agent" x="440" y="166" width="300" height="104" rx="12"/>
+            <text class="d-title" x="460" y="198">.claude/worktrees/refund-emails/</text>
+            <text class="d-branch" x="460" y="222">⎇ claude/refund-emails</text>
+            <text class="d-muted" x="460" y="248">creado por un agente · bloqueado</text>
+
+            <path class="d-line" d="M440 82 C 380 82, 360 190, 300 190"/>
+            <path class="d-line" d="M440 218 C 380 218, 360 200, 300 200"/>
+            <circle cx="300" cy="190" r="3.5" fill="#e08aff"/>
+            <circle cx="300" cy="200" r="3.5" fill="#e08aff"/>
+          </svg>
+        </figure>
+
+        <p>La carpeta que guarda el directorio <code>.git</code> es el <strong>worktree principal</strong>. En un
+          worktree enlazado, <code>.git</code> es un archivo pequeño que apunta a la entrada de ese worktree dentro de <code>.git/worktrees/</code> del principal. Por eso nunca debes borrar
+          a mano la carpeta de un worktree enlazado: el repositorio seguiría guardando un registro de él (ver
+          <a class="link" href="#problems">Problemas comunes</a>).</p>
+      </section>
+
+      <section id="why" aria-labelledby="why-title">
+        <h2 id="why-title">Cuándo usarlo</h2>
+        <ul>
+          <li><strong>Un arreglo urgente en medio de una feature.</strong> Abre un worktree en <code>main</code>,
+            arregla, commitea y haz push. Tu rama de feature queda tal como la dejaste — sin stash, sin un commit a
+            medias.</li>
+          <li><strong>Revisar un pull request.</strong> Haz checkout de la rama en su propia carpeta, córrela con sus
+            tests, mientras tu editor mantiene abierto tu trabajo.</li>
+          <li><strong>Builds o tests largos.</strong> Déjalos correr en un worktree mientras sigues programando en
+            otro.</li>
+          <li><strong>Agentes de código en paralelo.</strong> Claude Code, Codex y Cursor le dan a cada tarea su propio
+            worktree, así varios agentes (y tú) pueden trabajar en el mismo repositorio a la vez sin tocar los archivos
+            de los demás.</li>
+          <li><strong>Comparar comportamiento.</strong> Corre la versión vieja y la nueva lado a lado.</li>
+        </ul>
+        <p class="callout">Una regla define todo lo demás: <strong>una rama solo puede estar en checkout en un worktree
+          a la vez.</strong> Git se niega a hacer checkout de una rama en la que ya está otro worktree, así dos carpetas
+          nunca se pelean por la misma rama.</p>
+      </section>
+
+      <section id="terminal" aria-labelledby="terminal-title">
+        <h2 id="terminal-title">En la terminal</h2>
+        <p>Todo lo que sigue es Git puro (2.17 o más nuevo para todo; Alfa Git igual necesita 2.30). Córrelo dentro del
+          repositorio.</p>
+
+        <h3>Crear un worktree</h3>
+        <div class="terminal" role="img" aria-label="Comandos para crear worktrees">
+          <div class="terminal__bar"><i></i><i></i><i></i><span>checkout-service</span></div>
+          <pre><span class="t-dim"># una rama nueva, desde donde estás</span>
+git worktree add ../checkout-service-gift-cards -b feature/gift-cards
+
+<span class="t-dim"># una rama nueva desde otro punto (un tag, otra rama, un commit)</span>
+git worktree add ../checkout-service-hotfix -b hotfix/rounding v1.1.0
+
+<span class="t-dim"># una rama que ya existe</span>
+git worktree add ../checkout-service-review feature/refunds</pre>
+        </div>
+        <p>El primer argumento es la carpeta nueva, normalmente junto al repositorio. Luego entra con <code>cd</code> y
+          trabaja como siempre: <code>git status</code>, <code>git commit</code> y <code>git push</code> actúan sobre la
+          rama de ese worktree.</p>
+
+        <h3>Verlos</h3>
+        <div class="terminal" role="img" aria-label="Salida de git worktree list">
+          <div class="terminal__bar"><i></i><i></i><i></i><span>checkout-service</span></div>
+          <pre>git worktree list
+<span class="t-dim">/home/tu/Projects/checkout-service                               d58320a [main]
+/home/tu/Projects/checkout-service-hotfix                        9ac4877 [hotfix/rounding]
+/home/tu/Projects/checkout-service/.claude/worktrees/refund-emails 79775bc [claude/refund-emails] locked</span></pre>
+        </div>
+
+        <h3>Borrar, bloquear y limpiar</h3>
+        <div class="terminal" role="img" aria-label="Comandos para borrar, bloquear y limpiar worktrees">
+          <div class="terminal__bar"><i></i><i></i><i></i><span>checkout-service</span></div>
+          <pre><span class="t-dim"># borra la carpeta y olvida el worktree (la rama se conserva)</span>
+git worktree remove ../checkout-service-hotfix
+
+<span class="t-dim"># se niega si hay cambios sin commitear; --force los descarta</span>
+git worktree remove --force ../checkout-service-hotfix
+
+<span class="t-dim"># protege un worktree de remove y prune (los agentes lo hacen)</span>
+git worktree lock --reason "sesión de agente" ../checkout-service-review
+git worktree unlock ../checkout-service-review
+
+<span class="t-dim"># olvida los worktrees cuya carpeta se borró a mano</span>
+git worktree prune</pre>
+        </div>
+        <p class="callout callout--warn"><strong>Borrar un worktree nunca borra su rama</strong>, y sus commits siguen en
+          el repositorio. Borra la rama aparte cuando ya no la necesites.</p>
+      </section>
+
+      <section id="alfa-git" aria-labelledby="alfa-git-title">
+        <h2 id="alfa-git-title">En Alfa Git</h2>
+        <p>Alfa Git corre esos mismos comandos por ti y muestra cada worktree como un repositorio propio — con su
+          estado, Changes, History y Review — anidado bajo el repositorio al que pertenece.</p>
+
+        <h3>Encontrarlos</h3>
+        <ol class="steps">
+          <li><strong>Abre tu carpeta de proyectos</strong> como workspace. Los worktrees aparecen <strong>bajo su
+            repositorio</strong> en la sidebar, incluso los que están fuera de la carpeta, siempre que el repositorio mismo esté dentro. Haz clic en el contador junto
+            al repositorio para plegarlos o desplegarlos.</li>
+          <li><strong>Selecciona el repositorio principal y abre la pestaña Worktrees.</strong> Cada worktree es una
+            tarjeta con su rama, su carpeta, sus cambios sin commitear, cuánto está <strong>adelante (↑) y atrás
+            (↓)</strong> del worktree principal y su último commit. <em>you are here</em> marca el que tienes abierto;
+            las etiquetas dicen si es el <em>main</em>, si está <em>locked</em> (bloqueado), si lo creó un
+            <em>agent</em> o si su carpeta no existe (<em>folder missing</em>).</li>
+          <li><strong>Abre la flecha de una tarjeta</strong> para ver sus archivos cambiados; haz clic en uno para ver su
+            diff.</li>
+        </ol>
+        <figure class="window guide__figure">
+          <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="../../../assets/worktrees.png" width="1600" height="851" loading="lazy"
+               alt="Pestaña Worktrees de checkout-service: el worktree principal, un worktree de hotfix y un worktree bloqueado de un agente con un archivo cambiado">
+          <figcaption>La pestaña Worktrees: un worktree de hotfix junto al repositorio, y el worktree de un agente de código dentro de él.</figcaption>
+        </figure>
+
+        <h3>Crear uno</h3>
+        <ol class="steps">
+          <li>Haz clic en <strong>New Worktree</strong> en la pestaña Worktrees, o clic derecho sobre un repositorio en la
+            sidebar y elige <strong>New Worktree…</strong>.</li>
+          <li>Elige <strong>New branch</strong> (y desde dónde parte, <strong>Start from</strong>) o <strong>Existing
+            branch</strong>. Las ramas que ya están en checkout en otro worktree aparecen, pero no se pueden
+            elegir.</li>
+          <li>Revisa el nombre de la carpeta (<strong>Folder</strong>): se crea junto al worktree principal, y la ruta
+            completa aparece debajo.</li>
+          <li>Deja marcado <strong>Open it when it is ready</strong> y haz clic en <strong>Create Worktree</strong>.</li>
+        </ol>
+        <figure class="window guide__figure">
+          <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="../../../assets/worktree-new.png" width="1600" height="851" loading="lazy"
+               alt="Diálogo New Worktree con la rama nueva feature/gift-cards y la carpeta checkout-service-feature-gift-cards">
+          <figcaption>New Worktree: la rama, desde dónde parte y la carpeta donde vivirá.</figcaption>
+        </figure>
+
+        <h3>Trabajar entre worktrees</h3>
+        <ul>
+          <li><strong>Open</strong> cambia Alfa Git a ese worktree; <strong>Open in Editor</strong> y <strong>Open in
+            Terminal</strong> (en el menú de la tarjeta) lo abren en tus propias herramientas.</li>
+          <li><strong>Compare</strong> abre <strong>Review</strong> con la rama del worktree contra la del principal: sus
+            commits, cada archivo que cambia y si mergearla daría conflicto.</li>
+          <li>En el <strong>History</strong>, una rama que otro worktree tiene en checkout lleva el icono de worktree
+            (una chispa si es de un agente). Git no te dejaría hacer checkout de ella aquí, así que hacer doble clic — o
+            <strong>Open worktree</strong> en su menú contextual — te lleva a ese worktree.</li>
+        </ul>
+        <figure class="window guide__figure">
+          <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="../../../assets/worktree-graph.png" width="1600" height="851" loading="lazy"
+               alt="Menú contextual sobre la rama claude/refund-emails en el History, con Open worktree refund-emails">
+          <figcaption>Una rama en checkout en otro worktree: <em>Open worktree</em> reemplaza a <em>Checkout</em>.</figcaption>
+        </figure>
+
+        <h3>Borrar uno</h3>
+        <p>Elige <strong>Remove Worktree…</strong> en el menú de la tarjeta, o clic derecho sobre el worktree en la
+          sidebar. El sistema te pide confirmar. Si el worktree tiene cambios sin commitear, o está
+          <strong>bloqueado</strong> (los agentes bloquean los suyos), el diálogo lo dice — con el motivo del bloqueo — y
+          solo <strong>Remove Anyway</strong> lo borra. La rama siempre se conserva.</p>
+        <p>Si la carpeta de un worktree se borró fuera de la app, su tarjeta dice <em>folder missing</em> y
+          <strong>Clean up</strong> corre <code>git worktree prune</code> para olvidarlo.</p>
+      </section>
+
+      <section id="agents" aria-labelledby="agents-title">
+        <h2 id="agents-title">Worktrees creados por agentes de código</h2>
+        <p>Claude Code, Codex y Cursor pueden trabajar cada tarea en su propio worktree, normalmente bajo
+          <code>.claude/worktrees/</code>, <code>.codex/worktrees/</code> o <code>.cursor/worktrees/</code> — muchas veces
+          fuera de la carpeta que abriste. Alfa Git los encuentra a través del repositorio al que pertenecen, así que no
+          tienes que buscarlos:</p>
+        <ul>
+          <li>Aparecen bajo su repositorio con la etiqueta <strong>agent</strong>, y salen en <strong>Workspace
+            Changes</strong> como cualquier otro repositorio.</li>
+          <li>Los cambios que hace el agente aparecen solos, a medida que escribe archivos y hace commits.</li>
+          <li>Antes de mergear el trabajo de un agente, usa <strong>Compare</strong> para revisar cada archivo, y ordena
+            sus commits con un <strong>rebase interactivo</strong> (squash, fixup, reword) si quieres.</li>
+          <li>Cuando la tarea termine, borra el worktree desde la app: te pregunta primero, porque los agentes bloquean
+            sus worktrees mientras trabajan.</li>
+        </ul>
+        <figure class="window guide__figure">
+          <div class="window__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="../../../assets/terminal.png" width="1600" height="851" loading="lazy"
+               alt="La terminal integrada corriendo git worktree list y el log de la rama del agente">
+          <figcaption>Los mismos worktrees desde la terminal integrada: Alfa Git muestra exactamente lo que dice Git.</figcaption>
+        </figure>
+      </section>
+
+      <section id="problems" aria-labelledby="problems-title">
+        <h2 id="problems-title">Problemas comunes</h2>
+        <h3>“is already checked out at” / “is already used by worktree at”</h3>
+        <p>Esa rama está en checkout en otro worktree. Abre ese worktree (en Alfa Git, doble clic sobre la rama en el
+          History), o crea una rama nueva a partir de ella.</p>
+        <h3>Borré a mano la carpeta de un worktree</h3>
+        <p>Git lo sigue listando, marcado como <em>prunable</em>. Corre <code>git worktree prune</code>, o haz clic en
+          <strong>Clean up</strong> en la pestaña Worktrees. La rama y sus commits siguen ahí.</p>
+        <h3>“cannot remove a locked working tree”</h3>
+        <p>Alguien — normalmente un agente — lo bloqueó. Revisa con <code>git worktree list</code> que nada lo esté
+          usando, luego desbloquéalo con <code>git worktree unlock</code>, o usa <strong>Remove Anyway</strong> en Alfa
+          Git.</p>
+        <h3>Mi stash aparece en todos los worktrees</h3>
+        <p>Es lo esperado: el stash pertenece al repositorio, no a un worktree. Alfa Git muestra cada stash en el commit
+          desde el que se hizo.</p>
+      </section>
+
+      <section id="cheatsheet" aria-labelledby="cheatsheet-title">
+        <h2 id="cheatsheet-title">Resumen</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th scope="col">Quieres</th><th scope="col">Git</th><th scope="col">Alfa Git</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Crear</td><td><code>git worktree add &lt;carpeta&gt; -b &lt;rama&gt;</code></td><td>Worktrees › New Worktree</td></tr>
+              <tr><td>Listar</td><td><code>git worktree list</code></td><td>Sidebar, pestaña Worktrees</td></tr>
+              <tr><td>Revisar</td><td><code>git diff main...&lt;rama&gt;</code></td><td>Compare</td></tr>
+              <tr><td>Abrir</td><td><code>cd &lt;carpeta&gt;</code></td><td>Open, o doble clic en su rama</td></tr>
+              <tr><td>Borrar</td><td><code>git worktree remove &lt;carpeta&gt;</code></td><td>Remove Worktree…</td></tr>
+              <tr><td>Limpiar</td><td><code>git worktree prune</code></td><td>Clean up</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <aside class="guide__next">
+        <h2>Pruébalo con tus repositorios</h2>
+        <p>Alfa Git es gratis durante la beta, para macOS, Windows y Linux. Abre tu carpeta de proyectos y todos los
+          worktrees — los tuyos y los de tus agentes — ya estarán ahí.</p>
+        <a class="btn btn--primary btn--lg" href="../../#download">Descarga la beta</a>
+      </aside>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a class="brand brand--sm" href="../../">
+        <img src="../../../assets/icon.svg" alt="" width="22" height="22">
+        <span>Alfa Git</span>
+      </a>
+      <nav aria-label="Pie de página">
+        <a href="../../#features">Funciones</a>
+        <a href="../../#faq">Preguntas</a>
+        <a href="./">Guía de worktrees</a>
+        <a href="../../privacy/">Privacidad</a>
+        <a href="../../../guides/worktrees/" hreflang="en" lang="en">English</a>
+      </nav>
+      <p>© 2026 Felipe Caceres</p>
+    </div>
+  </footer>
+</body>
+</html>
